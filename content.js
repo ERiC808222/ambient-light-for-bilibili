@@ -204,861 +204,1060 @@
       document.documentElement.setAttribute('data-bili-ambient-alpha-projector', settings.alphaProjector ? '1' : '0');
       const headerAmbient = clamp(Number(settings.headerAmbient) || 0, 0, 100) / 100;
       const dmAmbient = clamp(Number(settings.dmAmbient) || 0, 0, 100) / 100;
-     ÛÛœİYÙTİ\™\ÜÚ[ÛˆHÛ[\
-[X™\ŠÙ][™ÜË™YÙTÚYİÔİ\™\ÜÚ[ÛŠHL
-HÈLØ[\
+      const edgeSuppression = clamp(Number(settings.edgeShadowSuppression) || 0, 0, 100) / 100;
+      document.documentElement.style.setProperty('--bali-header-bg-alpha', String(0.93 - headerAmbient * 0.52));
+      document.documentElement.style.setProperty('--bali-header-blur', `${Math.round(2 + headerAmbient * 30)}px`);
+      document.documentElement.style.setProperty('--bali-header-sat', String(1.02 + headerAmbient * 0.40));
+      document.documentElement.style.setProperty('--bali-dm-bg-alpha', String(0.97 - dmAmbient * 0.50));
+      document.documentElement.style.setProperty('--bali-dm-blur', `${Math.round(1 + dmAmbient * 27)}px`);
+      document.documentElement.style.setProperty('--bali-dm-sat', String(1.02 + dmAmbient * 0.36));
+      document.documentElement.style.setProperty('--bali-player-back-alpha', String(0.96 - edgeSuppression * 0.88));
+    } else {
+      document.documentElement.removeAttribute('data-bili-ambient-dark');
+      document.documentElement.removeAttribute('data-bili-ambient-header-top');
+      document.documentElement.removeAttribute('data-bili-ambient-text-adapt');
+      document.documentElement.removeAttribute('data-bili-ambient-dm-separated');
+      document.documentElement.removeAttribute('data-bili-ambient-no-edge-shadow');
+      document.documentElement.removeAttribute('data-bili-ambient-alpha-projector');
+      ['--bali-header-bg-alpha','--bali-header-blur','--bali-header-sat','--bali-dm-bg-alpha','--bali-dm-blur','--bali-dm-sat','--bali-player-back-alpha'].forEach(name => document.documentElement.style.removeProperty(name));
+    if (video) { video.removeAttribute('data-bali-fill-video'); video.style.removeProperty('--bali-fill-scale'); }
+    }
+  }
 
-[X™\ŠÙ][™ÜË˜œšYÚ™\ÜÊHL
-HÈLŒ‹ŠNÂˆÛÛœİ˜YHHÛ[\
-[X™\ŠÙ][™ÜË™˜YQ\˜][ÛŠHML
-NÂ‚ˆ™X\Ø[˜\Ëœİ[K›ÜXÚ]HHİš[™ÊK›™X\“ÜXÚ]JNÂˆ˜\Ø[˜\Ëœİ[K›ÜXÚ]HHİš[™ÊK™˜\“ÜXÚ]JNÂˆËÈØÜ™Y[ˆ›[™[™ÈXZÙ\È›XÚÈÛİ\˜ÙH^[ÈÛÛšX]H›È˜›XÚÈÛİÈ‹‚ˆ™X\Ø[˜\Ëœİ[K›Z^›[™[ÙHHÙ][™ÜË˜[T›Ú™XİÜˆÈ	ÜØÜ™Y[‰Èˆ	Û›Ü›X[	ÎÂˆ˜\Ø[˜\Ëœİ[K›Z^›[™[ÙHHÙ][™ÜË˜[T›Ú™XİÜˆÈ	ÜØÜ™Y[‰Èˆ	Û›Ü›X[	ÎÂˆ™X\Ø[˜\Ëœİ[K˜[œÚ][ÛˆHš[\ˆ	Ù˜Y_[\ÈX\ÙKÜXÚ]H	Ù˜Y_[\ÈX\ÙXÂˆ˜\Ø[˜\Ëœİ[K˜[œÚ][ÛˆHš[\ˆ	Ù˜Y_[\ÈX\ÙKÜXÚ]H	Ù˜Y_[\ÈX\ÙXÂ‚ˆ™X\Ø[˜\Ëœİ[KœÙ]›Ü\J	Ùš[\‰Ë›\Š	ØK›™X\›\Ÿ\
-HØ]\˜]J	ÜØ]
-ˆšXŸJHœšYÚ™\ÜÊ	Øœš_JX	Ú[\Ü[	ÊNÂˆ˜\Ø[˜\Ëœİ[KœÙ]›Ü\J	Ùš[\‰Ë›\Š	ØK™˜\›\Ÿ\
-HØ]\˜]J	ÜØ]
-ˆšXˆ
-ˆKŒJHœšYÚ™\ÜÊ	ØœšH
-ˆMŸJX	Ú[\Ü[	ÊNÂˆB‚ˆ[˜İ[Ûˆ™\Ú^™PØ[˜\ÕÕšY]ÜÜ
-Ø[˜\Ëİ˜\ˆH˜[ÙJHÂˆYˆ
-XØ[˜\ÈXİ
-H™]\›ÂˆÛÛœİÈHX]›X^
-KÚ[™İËš[›™\•ÚY
-NÂˆÛÛœİšHX]›X^
-KÚ[™İËš[›™\’ZYÚ
-NÂˆ]HHÛ[\
-[X™\ŠÙ][™ÜËœ™[™\”]X[]JHÌ‹M‹L
-HÈLÂˆËÈH˜\ˆ›Ú™XİÜˆ\ÈX]š[H›\œ™YÛÈ^˜HÛİ\˜ÙH^[È\™Hš\İX[HØ\İY‚ˆËÈİÙ\š[™È]È˜XÚÚ[™È™\ÛÛ][ÛˆØ]™\ÈH\™ÙH[[İ[ÙˆÔHÛÛ\ÜÚ][™ÈÛÜšË‚ˆYˆ
-Ù][™ÜËœ\™›Ü›X[˜ÙS[ÙJHH
-H˜\ˆÈˆLÂˆÛÛœİZ[•ÈH˜\ˆ	‰ˆÙ][™ÜËœ\™›Ü›X[˜ÙS[ÙHÈNLˆˆMÂˆÛÛœİZ[’H˜\ˆ	‰ˆÙ][™ÜËœ\™›Ü›X[˜ÙS[ÙHÈLˆMÂˆÛÛœİÈHX]›X^
-Z[•ËX]œ›İ[™
-È
-ˆJJNÂˆÛÛœİHX]›X^
-Z[’X]œ›İ[™
-š
-ˆJJNÂˆYˆ
-Ø[˜\ËÚYOOHÈØ[˜\ËšZYÚOOH
-HÂˆØ[˜\ËÚYHÎÂˆØ[˜\ËšZYÚHÂˆBˆB‚ˆ[˜İ[Ûˆ\]QÙ[ÛY]J›Ü˜ÙHH˜[ÙJHÂˆYˆ
-]šY[ÊH™]\›ÂˆÛÛœİ›İÈH\™›Ü›X[˜ÙK››İÊ
-NÂˆYˆ
-Y›Ü˜ÙH	‰ˆYÙ[ÛY]Q\H	‰ˆ›İÈH\İÙ[ÛY]U\]HL
-H™]\›ÂˆÛÛœİˆHšY[Ë™Ù]›İ[™[™ĞÛY[™Xİ
+  function derivedAmbient() {
+    const blur = clamp(Number(settings.blur) || 0, 0, 100);
+    const spread = clamp(Number(settings.spread) || 0, 0, 100);
 
-NÂˆYˆ
-‹ÚYL‹šZYÚL
-H™]\›ÂˆÙ[ÛY]HHÂˆˆ‹›YˆNˆ‹ÜˆÎˆ‹ÚYˆˆ‹šZYÚˆŞˆ‹›Y
-È‹ÚYÈ‹ˆŞNˆ‹Ü
-È‹šZYÚÈ‚ˆNÂˆÙ[ÛY]Q\HH˜[ÙNÂˆ\İÙ[ÛY]U\]HH›İÎÂˆ\]SX\ÚÜÊ
-NÂˆB‚ˆ[˜İ[Ûˆ\]SX\ÚÜÊ
-HÂˆYˆ
-YÙ[ÛY]H[™X\Ø[˜\ÈY˜\Ø[˜\ÊH™]\›ÂˆYˆ
-Ù][™ÜË˜[T›Ú™XİÜŠHÂˆ™X\Ø[˜\Ëœİ[KÙXšÚ]X\ÚÒ[XYÙHH	Û›Û™IÎÂˆ™X\Ø[˜\Ëœİ[K›X\ÚÒ[XYÙHH	Û›Û™IÎÂˆ˜\Ø[˜\Ëœİ[KÙXšÚ]X\ÚÒ[XYÙHH	Û›Û™IÎÂˆ˜\Ø[˜\Ëœİ[K›X\ÚÒ[XYÙHH	Û›Û™IÎÂˆ™]\›ÂˆBˆÛÛœİÈŞŞKËHHÙ[ÛY]NÂˆÛÛœİÈHÚ[™İËš[›™\•ÚYÂˆÛÛœİšHÚ[™İËš[›™\’ZYÚÂ‚ˆËÈ˜YHX\ÚÜÈ™[[İ™HH™Xİ[™İ[\ˆ›Ú™XİÜˆYÙKˆHÜ™XY]Ù[ˆ\ÈÛÛ›ÛYˆËÈÙ\\˜][KÛÈ[˜Ü™X\Ú[™È›\ˆ›ÈÛ™Ù\ˆ[›\™Ù\ÈHÛİÈ›Ûİš[‚ˆÛÛœİ™X\”˜Y]\ÖHX]›X^
-È
-ˆNÍ
-NÂˆÛÛœİ™X\”˜Y]\ÖHHX]›X^
-
-ˆKŒ
-NÂˆÛÛœİ˜\”˜Y]\ÖHX]›X^
-È
-ˆKLÈ
-ˆ
-NÂˆÛÛœİ˜\”˜Y]\ÖHHX]›X^
-
-ˆKMKš
-ˆ
-NÂ‚ˆÛÛœİ™X\“X\ÚÈH˜YX[YÜ˜YY[
-[\ÙH	ØÜÜÔ
-™X\”˜Y]\Ö
-_H	ØÜÜÔ
-™X\”˜Y]\ÖJ_H]	ØÜÜÔ
-Ş
-_H	ØÜÜÔ
-ŞJ_K™Ø˜JJH	K™Ø˜JN
-HÍ	K™Ø˜JÎ
-HŒ	K™Ø˜J
-HL	JXÂˆÛÛœİ˜\“X\ÚÈH˜YX[YÜ˜YY[
-[\ÙH	ØÜÜÔ
-˜\”˜Y]\Ö
-_H	ØÜÜÔ
-˜\”˜Y]\ÖJ_H]	ØÜÜÔ
-Ş
-_H	ØÜÜÔ
-ŞJ_K™Ø˜JJH	K™Ø˜JL
-H	K™Ø˜JM
-HÌ	K™Ø˜J
-HL	JXÂ‚ˆ™X\Ø[˜\Ëœİ[KÙXšÚ]X\ÚÒ[XYÙHH™X\“X\ÚÎÂˆ™X\Ø[˜\Ëœİ[K›X\ÚÒ[XYÙHH™X\“X\ÚÎÂˆ˜\Ø[˜\Ëœİ[KÙXšÚ]X\ÚÒ[XYÙHH˜\“X\ÚÎÂˆ˜\Ø[˜\Ëœİ[K›X\ÚÒ[XYÙHH˜\“X\ÚÎÂˆB‚ˆ[˜İ[Ûˆ[œİ\™Q]Xİ[ÛØ[˜\Ê
-HÂˆYˆ
-]Xİ[ÛØ[˜\ÊH™]\›Âˆ]Xİ[ÛØ[˜\ÈHØİ[Y[˜Ü™X]Q[[Y[
-	ØØ[˜\ÉÊNÂˆ]Xİ[ÛØ[˜\ËÚYHNLÂˆ]Xİ[ÛØ[˜\ËšZYÚHLÂˆ]Xİ[ÛİH]Xİ[ÛØ[˜\Ë™Ù]ÛÛ^
-	Ì™	ËÂˆ[Nˆ˜[ÙKˆÚ[™XYœ™\]Y[NˆYKˆ\Ş[˜Ú›Ûš^™YˆYBˆJNÂˆB‚ˆ[˜İ[Ûˆ™\Ù]˜\‘]Xİ[ÛŠ
-HÂˆ˜\’\İÜHH×NÂˆ˜\Ü›ÜHÈÜˆ›İÛNˆYˆšYÚˆNÂˆ\İ˜\‘]Xİ[ÛˆHÂˆ˜\‘]Xİ[Û‘˜Z[YH˜[ÙNÂˆ\]P˜\”İ]\Ê
-NÂˆ\UšY[Ñš[
+    if (settings.alphaProjector) {
+      // Edge projector: spread is produced geometrically from the video edges,
+      // while blur only softens the projected light. This avoids the "giant blurry video" look.
+      return {
+        nearSpread: 1.08 + (spread / 100) * 0.24,
+        farSpread: 1.18 + (spread / 100) * 0.52,
+        nearDistance: 70 + spread * 2.65,
+        farDistance: 180 + spread * 5.4,
+        nearBlur: 20 + blur * 0.82,
+        farBlur: 44 + blur * 1.28,
+        nearOpacity: 0.98,
+        farOpacity: 0.78
+      };
+    }
 
-NÂˆB‚ˆ[˜İ[Ûˆ[™Tİ]Ê]KÚYZYÚÜš^›Û[[™^
-HÂˆ]Ûİ[HÂˆ]\šÈHÂˆ]İ[HHÂˆ]İ[LˆHÂˆ]İ[TˆHİ[QÈHİ[PˆHÂˆÛÛœİÙ[œÚ]]š]HHÛ[\
-[X™\ŠÙ][™ÜË˜˜\‘]Xİ[Û”Ù[œÚ]]š]JHŒLL
-NÂˆÛÛœİ\šÕ™\ÚÛHL
-ÈÙ[œÚ]]š]H
-ˆŒÍÂ‚ˆËÈYÛ›Ü™HHİ]\ˆ	H]HÛÜ›™\œÎˆ[˜ÛÙYÙÛÜËÛ›Ú\ÙH\™HÚİ[›İˆËÈ\İXš[^™H[ˆİ\Ú\ÙHÛÛY˜\‹‚ˆYˆ
-Üš^›Û[
-HÂˆÛÛœİHX]™›ÛÜŠÚY
-ˆŒ
-NÂˆÛÛœİHHX]˜ÙZ[
-ÚY
-ˆMŠNÂˆ›Üˆ
-]HÈNÈ
-ÊÊHÂˆÛÛœİH
-[™^
-ˆÚY
-È
-H
-ˆÂˆÛÛœİˆH]VÜKÈH]VÜ
-ÈWKˆH]VÜ
-È—NÂˆÛÛœİ[HHˆ
-ˆŒŒLˆ
-ÈÈ
-ˆÌMLˆ
-Èˆ
-ˆŒÌŒÂˆÛİ[
-ÊÎÈİ[H
-ÏH[NÈİ[Lˆ
-ÏH[H
-ˆ[NÂˆİ[Tˆ
-ÏHÈİ[QÈ
-ÏHÎÈİ[Pˆ
-ÏHÂˆYˆ
-[HH\šÕ™\ÚÛ
-H\šÊÊÎÂˆBˆH[ÙHÂˆÛÛœİLHX]™›ÛÜŠZYÚ
-ˆŒ
-NÂˆÛÛœİLHHX]˜ÙZ[
-ZYÚ
-ˆMŠNÂˆ›Üˆ
-]HHLÈHLNÈJÊÊHÂˆÛÛœİH
-H
-ˆÚY
-È[™^
-H
-ˆÂˆÛÛœİˆH]VÜKÈH]VÜ
-ÈWKˆH]VÜ
-È—NÂˆÛÛœİ[HHˆ
-ˆŒŒLˆ
-ÈÈ
-ˆÌMLˆ
-Èˆ
-ˆŒÌŒÂˆÛİ[
-ÊÎÈİ[H
-ÏH[NÈİ[Lˆ
-ÏH[H
-ˆ[NÂˆİ[Tˆ
-ÏHÈİ[QÈ
-ÏHÎÈİ[Pˆ
-ÏHÂˆYˆ
-[HH\šÕ™\ÚÛ
-H\šÊÊÎÂˆBˆB‚ˆÛÛœİYX[ˆHÛİ[Èİ[HÈÛİ[ˆMNÂˆÛÛœİ˜\šX[˜ÙHHÛİ[ÈX]›X^
-İ[LˆÈÛİ[HYX[ˆ
-ˆYX[ŠHˆNNNÂˆ™]\›ˆÂˆYX[‹ˆİˆX]œÜ\
-˜\šX[˜ÙJKˆ\šÔ˜][ÎˆÛİ[È\šÈÈÛİ[ˆˆˆÛİ[Èİ[TˆÈÛİ[ˆMKˆÎˆÛİ[Èİ[QÈÈÛİ[ˆMKˆˆÛİ[Èİ[PˆÈÛİ[ˆMBˆNÂˆB‚ˆ[˜İ[Ûˆ[™SÛÚÜÓZÙP˜\Šİ]ÊHÂˆÛÛœİÙ[œÚ]]š]HHÛ[\
-[X™\ŠÙ][™ÜË˜˜\‘]Xİ[Û”Ù[œÚ]]š]JHŒLL
-NÂˆÛÛœİ\šÕ™\ÚÛHL
-ÈÙ[œÚ]]š]H
-ˆŒÍÂˆÛÛœİ™\]Z\™Y\šÔ˜][ÈHNHHÙ[œÚ]]š]H
-ˆŒLÂˆÛÛœİ\Ğ›XÚÈHİ]Ë™\šÔ˜][ÈH™\]Z\™Y\šÔ˜][È	‰ˆİ]Ë›YX[ˆH\šÕ™\ÚÛ
-ÈNÂˆYˆ
-\Ğ›XÚÊH™]\›ˆYNÂ‚ˆYˆ
-\Ù][™ÜË™]XİÛÛÜ™Y˜\œÊH™]\›ˆ˜[ÙNÂˆËÈÛÛÜ™YX˜\ˆ]Xİ[Ûˆ\È[[[Û˜[HÛÛœÙ\˜]]™KˆÛÛYÛ™X\‹\ÛÛYÛÛÜ™YˆËÈX]\È]X[YK]Ü™[˜\H›]\™X\È[ˆ[š[X][Ûˆ\İX[H]™H[Ü™H˜\šX[˜ÙK‚ˆÛÛœİX^Ú[›™[HX]›X^
-İ]Ëœ‹İ]Ë™Ëİ]Ë˜ŠNÂˆÛÛœİZ[Ú[›™[HX]›Z[Šİ]Ëœ‹İ]Ë™Ëİ]Ë˜ŠNÂˆ™]\›ˆİ]ËœİH‹	‰ˆ
-X^Ú[›™[HZ[Ú[›™[
-HHN	‰ˆİ]Ë›YX[ˆHŒLÂˆB‚ˆ[˜İ[ÛˆØØ[‘YÙJ]KÚYZYÚYÙJHÂˆÛÛœİÜš^›Û[HYÙHOOH	İÜ	ÈYÙHOOH	Ø›İÛIÎÂˆÛÛœİÚ^™HHÜš^›Û[ÈZYÚˆÚYÂˆÛÛœİX^HX]™›ÛÜŠÚ^™H
-ˆŒÎ
-NÂˆ][ˆHÂˆ]Z\ÜÙ\ÈHÂ‚ˆ›Üˆ
-]HHÈHX^ÈJÊÊHÂˆÛÛœİ[™^H
-YÙHOOH	İÜ	ÈYÙHOOH	ÛY	ÊHÈHˆÚ^™HHHHNÂˆÛÛœİİ]ÈH[™Tİ]Ê]KÚYZYÚÜš^›Û[[™^
-NÂˆYˆ
-[™SÛÚÜÓZÙP˜\Šİ]ÊJHÂˆ[ˆHH
-ÈNÂˆZ\ÜÙ\ÈHÂˆH[ÙHÂˆZ\ÜÙ\ÊÊÎÂˆËÈÛ\˜]HHÚ[™ÛH›Ú\ŞH[™H]H›Ü™\‹]İÜÛˆH™X[ÛÛ[YÙK‚ˆYˆ
-Z\ÜÙ\ÈHŠHœ™XZÎÂˆBˆBˆ™]\›ˆ[ˆÈÚ^™NÂˆB‚ˆ[˜İ[ÛˆÙ[\“[Z[˜[˜ÙJ]KÚYZYÚ
-HÂˆÛÛœİHX]™›ÛÜŠÚY
-ˆŒÌ
-KHHX]˜ÙZ[
-ÚY
-ˆÌ
-NÂˆÛÛœİLHX]™›ÛÜŠZYÚ
-ˆŒÌ
-KLHHX]˜ÙZ[
-ZYÚ
-ˆÌ
-NÂˆ]İ[HHÛİ[HÂˆ›Üˆ
-]HHLÈHLNÈH
-ÏHŠHÂˆ›Üˆ
-]HÈNÈ
-ÏHŠHÂˆÛÛœİH
-H
-ˆÚY
-È
-H
-ˆÂˆİ[H
-ÏH]VÜH
-ˆŒŒLˆ
-È]VÜ
-ÈWH
-ˆÌMLˆ
-È]VÜ
-È—H
-ˆŒÌŒÂˆÛİ[
-ÊÎÂˆBˆBˆ™]\›ˆÛİ[Èİ[HÈÛİ[ˆÂˆB‚ˆ[˜İ[ÛˆYYX[Š˜[Y\ÊHÂˆÛÛœİHH˜[Y\ËœÛXÙJ
-KœÛÜ
+    // Stable v3.3.1 fallback renderer.
+    return {
+      nearSpread: 1.15 + (spread / 100) * 0.15,
+      farSpread: 1.55 + (spread / 100) * 0.67,
+      nearDistance: 0,
+      farDistance: 0,
+      nearBlur: 60 + blur * 1.65,
+      farBlur: 135 + blur * 2.55,
+      nearOpacity: 0.96,
+      farOpacity: 0.82
+    };
+  }
 
-JHOˆHJNÂˆYˆ
-XK›[™İ
-H™]\›ˆÂˆÛÛœİHHX]™›ÛÜŠK›[™İÈŠNÂˆ™]\›ˆK›[™İ	HˆÈVÛWHˆ
-VÛHHWH
-ÈVÛWJHÈÂˆB‚ˆ[˜İ[Ûˆ\]TİX›P˜\Ü›Ü
+  function applyStyles() {
+    if (!root || !shade || !nearCanvas || !farCanvas) return;
 
-HÂˆÛÛœİØ[YHÛ[\
-X]œ›İ[™
-[X™\ŠÙ][™ÜË˜˜\‘œ˜[Y\Ğ]™\˜YÙJHJKKÌ
-NÂˆYˆ
-X˜\’\İÜK›[™İ
-H™]\›ÂˆÛÛœİØ[\\ÈH˜\’\İÜKœÛXÙJ]Ø[Y
-NÂˆÛÛœİZ[”Ø[\\ÈHX]›Z[ŠØ[YÊNÂˆYˆ
-Ø[\\Ë›[™İZ[”Ø[\\ÊH™]\›Â‚ˆÛÛœİ™^HÂˆÜˆYYX[ŠØ[\\Ë›X\
-ˆOˆ‹Ü
-JKˆ›İÛNˆYYX[ŠØ[\\Ë›X\
-ˆOˆ‹˜›İÛJJKˆYˆYYX[ŠØ[\\Ë›X\
-ˆOˆ‹›Y
-JKˆšYÚˆYYX[ŠØ[\\Ë›X\
-ˆOˆ‹œšYÚ
-JBˆNÂ‚ˆËÈYÛ›Ü™HİX‹LKŒ‰H›Ú\ÙNˆ™X[[˜ÛÙY˜\œÈ\™H›Ü›X[HÚY\ˆ[ˆ\Ë‚ˆ›Üˆ
-ÛÛœİÙ^HÙˆØš™XİšÙ^\Ê™^
-JHÂˆYˆ
-™^ÚÙ^WHŒLŠH™^ÚÙ^WHHÂˆ™^ÚÙ^WHHÛ[\
-™^ÚÙ^WK
-NÂˆB‚ˆ˜\Ü›ÜH™^Âˆ\]P˜\”İ]\Ê
-NÂˆ\UšY[Ñš[
+    const on = active();
+    root.style.display = on ? 'block' : 'none';
+    shade.style.opacity = settings.trueBlack ? '1' : '.88';
+    applyPageTheme();
 
-NÂˆB‚ˆ[˜İ[Ûˆ]Xİ˜\œÊÈH\™›Ü›X[˜ÙK››İÊ
-K›Ü˜ÙHH˜[ÙJHÂˆYˆ
-]šY[È]šY[ËšY[ÕÚY]šY[ËšY[ÒZYÚ
-H™]\›ÂˆYˆ
-\Ù][™ÜËœ™[[İ™RÜš^›Û[˜\œÈ	‰ˆ\Ù][™ÜËœ™[[İ™U™\XØ[˜\œÈ	‰ˆ\Ù][™ÜË™]XİÛÛÜ™Y˜\œÊHÂˆYˆ
-˜\Ü›ÜÜ˜\Ü›Ü˜›İÛH˜\Ü›Ü›Y˜\Ü›ÜœšYÚ
-H™\Ù]˜\‘]Xİ[ÛŠ
-NÂˆ™]\›ÂˆBˆÛÛœİ]Xİ[Û’[\˜[HÙ][™ÜËœ\™›Ü›X[˜ÙS[ÙHÈÌˆÌŒÂˆYˆ
-Y›Ü˜ÙH	‰ˆÈH\İ˜\‘]Xİ[Ûˆ]Xİ[Û’[\˜[
-H™]\›Âˆ\İ˜\‘]Xİ[ÛˆHÎÂ‚ˆ[œİ\™Q]Xİ[ÛØ[˜\Ê
-NÂˆHÂˆ]Xİ[Ûİ™˜]Ò[XYÙJšY[Ë]Xİ[ÛØ[˜\ËÚY]Xİ[ÛØ[˜\ËšZYÚ
-NÂˆÛÛœİ[XYÙHH]Xİ[Ûİ™Ù][XYÙQ]J]Xİ[ÛØ[˜\ËÚY]Xİ[ÛØ[˜\ËšZYÚ
-NÂˆÛÛœİ]HH[XYÙK™]NÂˆÛÛœİÈH]Xİ[ÛØ[˜\ËÚYH]Xİ[ÛØ[˜\ËšZYÚÂ‚ˆËÈ\š[™ÈH™X\‹X›XÚÈØÙ[™H\™H\È›İ[›İYÚ[™›Ü›X][ÛˆÈ\İ[™İZ\ÚBˆËÈÚ[™[X]XÈ˜\ˆœ›ÛH[XYÙHÛÛ[ˆÙY\H™]š[İ\ÈİX›H™\İ[[œİXY‚ˆYˆ
-\Ù][™ÜË™]XİÛÛÜ™Y˜\œÈ	‰ˆÙ[\“[Z[˜[˜ÙJ]KË
-HMJH™]\›Â‚ˆÛÛœİ]XİYHÂˆÜˆÙ][™ÜËœ™[[İ™RÜš^›Û[˜\œÈÈØØ[‘YÙJ]KË	İÜ	ÊHˆˆ›İÛNˆÙ][™ÜËœ™[[İ™RÜš^›Û[˜\œÈÈØØ[‘YÙJ]KË	Ø›İÛIÊHˆˆYˆÙ][™ÜËœ™[[İ™U™\XØ[˜\œÈÈØØ[‘YÙJ]KË	ÛY	ÊHˆˆšYÚˆÙ][™ÜËœ™[[İ™U™\XØ[˜\œÈÈØØ[‘YÙJ]KË	ÜšYÚ	ÊHˆˆNÂ‚ˆËÈH™\İ[]ÛÛœİ[Y\È[ÜİÙˆHœ˜[YH\ÈH\šÈØÙ[™K›İH]\˜›Ş‚ˆYˆ
-]XİYÜ
-È]XİY˜›İÛHˆŒˆ]XİY›Y
-È]XİYœšYÚˆŒŠH™]\›Â‚ˆ˜\‘]Xİ[Û‘˜Z[YH˜[ÙNÂˆ˜\’\İÜKœ\Ú
-]XİY
-NÂˆÛÛœİØ[YHÛ[\
-X]œ›İ[™
-[X™\ŠÙ][™ÜË˜˜\‘œ˜[Y\Ğ]™\˜YÙJHJKKÌ
-NÂˆYˆ
-˜\’\İÜK›[™İˆX]›X^
-ÌØ[Y
-ˆŠJH˜\’\İÜKœÜXÙJ˜\’\İÜK›[™İHX]›X^
-ÌØ[Y
-ˆŠJNÂˆ\]TİX›P˜\Ü›Ü
+    const a = derivedAmbient();
+    const sat = clamp((Number(settings.saturation) || 100) / 100, 0.2, 2.5);
+    const vib = clamp((Number(settings.vibrance) || 100) / 100, 0.2, 2.5);
+    const bri = clamp((Number(settings.brightness) || 100) / 100, 0.2, 2);
+    const fade = clamp(Number(settings.fadeDuration) || 0, 0, 1500);
 
-NÂˆHØ]Ú
-ÊHÂˆ˜\‘]Xİ[Û‘˜Z[YHYNÂˆ\]P˜\”İ]\Ê
-NÂˆBˆB‚ˆ[˜İ[ÛˆY™™Xİ]™P˜\Ü›Ü
+    nearCanvas.style.opacity = String(a.nearOpacity);
+    farCanvas.style.opacity = String(a.farOpacity);
+    // Screen blending makes black source pixels contribute no "black glow".
+    nearCanvas.style.mixBlendMode = settings.alphaProjector ? 'screen' : 'normal';
+    farCanvas.style.mixBlendMode = settings.alphaProjector ? 'screen' : 'normal';
+    nearCanvas.style.transition = `filter ${fade}ms ease, opacity ${fade}ms ease`;
+    farCanvas.style.transition = `filter ${fade}ms ease, opacity ${fade}ms ease`;
 
-HÂˆÛÛœİÙ™œÙ]HÛ[\
-[X™\ŠÙ][™ÜË˜˜\‘]Xİ[Û“Ù™œÙ]
-HMKJHÈLÂˆÛÛœİX[X[HÛ[\
-[X™\ŠÙ][™ÜË›X[X[Üš^›Û[Û\
-H
-HÈLÂˆÛÛœİX[X[ˆHÛ[\
-[X™\ŠÙ][™ÜË›X[X[™\XØ[Û\
-H
-HÈLÂˆÛÛœİ]]ÈHÂˆÜˆÙ][™ÜËœ™[[İ™RÜš^›Û[˜\œÈÈ˜\Ü›ÜÜˆˆ›İÛNˆÙ][™ÜËœ™[[İ™RÜš^›Û[˜\œÈÈ˜\Ü›Ü˜›İÛHˆˆYˆÙ][™ÜËœ™[[İ™U™\XØ[˜\œÈÈ˜\Ü›Ü›YˆˆšYÚˆÙ][™ÜËœ™[[İ™U™\XØ[˜\œÈÈ˜\Ü›ÜœšYÚˆˆNÂˆ™]\›ˆÂˆÜˆÛ[\
-X]›X^
-X[X[]]ËÜ
-È
-]]ËÜÈÙ™œÙ]ˆ
-JK
-Kˆ›İÛNˆÛ[\
-X]›X^
-X[X[]]Ë˜›İÛH
-È
-]]Ë˜›İÛHÈÙ™œÙ]ˆ
-JK
-KˆYˆÛ[\
-X]›X^
-X[X[‹]]Ë›Y
-È
-]]Ë›YÈÙ™œÙ]ˆ
-JK
-KˆšYÚˆÛ[\
-X]›X^
-X[X[‹]]ËœšYÚ
-È
-]]ËœšYÚÈÙ™œÙ]ˆ
-JK
-BˆNÂˆB‚ˆ[˜İ[Ûˆ\UšY[Ñš[
+    nearCanvas.style.setProperty('filter', `blur(${a.nearBlur}px) saturate(${sat * vib}) brightness(${bri})`, 'important');
+    farCanvas.style.setProperty('filter', `blur(${a.farBlur}px) saturate(${sat * vib * 1.04}) brightness(${bri * 0.96})`, 'important');
+  }
 
-HÂˆYˆ
-]šY[ÊH™]\›ÂˆÛÛœİÈHY™™Xİ]™P˜\Ü›Ü
+  function resizeCanvasToViewport(canvas, ctx, far = false) {
+    if (!canvas || !ctx) return;
+    const vw = Math.max(1, window.innerWidth);
+    const vh = Math.max(1, window.innerHeight);
+    let q = clamp(Number(settings.renderQuality) || 32, 16, 100) / 100;
+    // The far projector is heavily blurred, so extra source pixels are visually wasted.
+    // Lowering its backing resolution saves a large amount of GPU compositing work.
+    if (settings.performanceMode) q *= far ? 0.68 : 0.90;
+    const minW = far && settings.performanceMode ? 192 : 256;
+    const minH = far && settings.performanceMode ? 108 : 144;
+    const w = Math.max(minW, Math.round(vw * q));
+    const h = Math.max(minH, Math.round(vh * q));
+    if (canvas.width !== w || canvas.height !== h) {
+      canvas.width = w;
+      canvas.height = h;
+    }
+  }
 
-NÂˆÛÛœİİ[HÛ[\
-Ë›Y
-ÈËœšYÚÎ
-NÂˆÛÛœİİ[HHÛ[\
-ËÜ
-ÈË˜›İÛKÎ
-NÂˆYˆ
-\Ù][™ÜË™š[šY[ÕĞÜ›Ü
-]İ[	‰ˆ]İ[JJHÂˆšY[Ëœ™[[İ™P]šX]J	Ù]KX˜[KYš[]šY[ÉÊNÂˆšY[Ëœİ[Kœ™[[İ™T›Ü\J	ËKX˜[KYš[\ØØ[IÊNÂˆ™]\›ÂˆBˆÛÛœİØØ[HHX]›X^
-HÈX]›X^
-ŒŒ‹HHİ[
-KHÈX]›X^
-ŒŒ‹HHİ[JJNÂˆšY[ËœÙ]]šX]J	Ù]KX˜[KYš[]šY[ÉË	ÌIÊNÂˆšY[Ëœİ[KœÙ]›Ü\J	ËKX˜[KYš[\ØØ[IËİš[™ÊX]›Z[ŠØØ[KK
-JJNÂˆB‚ˆ[˜İ[Ûˆ\]P˜\”İ]\Ê
-HÂˆYˆ
-X˜\”İ]\Ñ[[JH™]\›ÂˆYˆ
-˜\‘]Xİ[Û‘˜Z[Y
-HÂˆ˜\”İ]\Ñ[[K^ÛÛ[H	ù`ãùí(:+îùcå¹cåúfd0­È9cëùå*9¢bùbª:(àyb!ÉÎÂˆ™]\›ÂˆBˆÛÛœİÈHY™™Xİ]™P˜\Ü›Ü
+  function updateGeometry(force = false) {
+    if (!video) return;
+    const now = performance.now();
+    if (!force && !geometryDirty && now - lastGeometryUpdate < 900) return;
+    const r = video.getBoundingClientRect();
+    if (r.width < 10 || r.height < 10) return;
+    geometry = {
+      x: r.left,
+      y: r.top,
+      w: r.width,
+      h: r.height,
+      cx: r.left + r.width / 2,
+      cy: r.top + r.height / 2
+    };
+    geometryDirty = false;
+    lastGeometryUpdate = now;
+    updateMasks();
+  }
 
-NÂˆÛÛœİİHˆOˆ	Êˆ
-ˆL
-KÑš^Y
-J_IXÂˆYˆ
-JËÜË˜›İÛHË›YËœšYÚ
-JHÂˆ˜\”İ]\Ñ[[K^ÛÛ[H	ù§*¹¨à9­bùb,:näz/®IÎÂˆ™]\›ÂˆBˆ˜\”İ]\Ñ[[K^ÛÛ[H9."ˆ	Üİ
-ËÜ
-_H0­È9."È	Üİ
-Ë˜›İÛJ_H0­È9méˆ	Üİ
-Ë›Y
-_H0­È9cìÈ	Üİ
-ËœšYÚ
-_XÂˆB‚ˆ[˜İ[ÛˆÙ][XšY[Ûİ\˜ÙPÜ›Ü
+  function updateMasks() {
+    if (!geometry || !nearCanvas || !farCanvas) return;
+    if (settings.alphaProjector) {
+      nearCanvas.style.webkitMaskImage = 'none';
+      nearCanvas.style.maskImage = 'none';
+      farCanvas.style.webkitMaskImage = 'none';
+      farCanvas.style.maskImage = 'none';
+      return;
+    }
+    const { cx, cy, w, h } = geometry;
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
 
-HÂˆÛÛœİÜ›ÜHY™™Xİ]™P˜\Ü›Ü
+    // Fade masks remove the rectangular projector edge. The spread itself is controlled
+    // separately, so increasing Blur no longer enlarges the glow footprint.
+    const nearRadiusX = Math.max(w * 0.98, 340);
+    const nearRadiusY = Math.max(h * 1.08, 240);
+    const farRadiusX = Math.max(w * 1.90, vw * 0.80);
+    const farRadiusY = Math.max(h * 1.95, vh * 0.84);
 
-NÂˆ]Ü˜ÖHšY[ËšY[ÕÚY
-ˆÜ›Ü›YÂˆ]Ü˜ÖHHšY[ËšY[ÒZYÚ
-ˆÜ›ÜÜÂˆ]Ü˜ÕÈHšY[ËšY[ÕÚY
-ˆX]›X^
-ŒKHHÜ›Ü›YHÜ›ÜœšYÚ
-NÂˆ]Ü˜ÒHšY[ËšY[ÒZYÚ
-ˆX]›X^
-ŒKHHÜ›ÜÜHÜ›Ü˜›İÛJNÂ‚ˆËÈØ[\HH[H[[İ[[œÚYHH]XİYXİ\™Kˆ\È[[[Û˜[HY™™XİÈÛ›BˆËÈH[XšY[Ûİ\˜ÙH[™™[[İ™\È\[˜ÛÙY›Ü™\œÈÈ^Y\‹YYÙH\šÈ[™\Ë‚ˆÛÛœİ[œÙ]HŒÂˆÜ˜Ö
-ÏHÜ˜ÕÈ
-ˆ[œÙ]ÂˆÜ˜ÖH
-ÏHÜ˜Ò
-ˆ[œÙ]ÂˆÜ˜ÕÈ
-HHH[œÙ]
-ˆÂˆÜ˜Ò
-HHH[œÙ]
-ˆÂˆ™]\›ˆÈÜ›ÜÜ˜ÖÜ˜ÖKÜ˜ÕËÜ˜ÒNÂˆB‚ˆ[˜İ[ÛˆÙ][XšY[ÛÛ[™Xİ
-Ü›Ü
-HÂˆÛÛœİÈHÙ[ÛY]NÂˆ™]\›ˆÂˆˆË
-ÈËÈ
-ˆÜ›Ü›YˆNˆËH
-ÈËš
-ˆÜ›ÜÜˆÎˆËÈ
-ˆX]›X^
-ŒKHHÜ›Ü›YHÜ›ÜœšYÚ
-KˆˆËš
-ˆX]›X^
-ŒKHHÜ›ÜÜHÜ›Ü˜›İÛJBˆNÂˆB‚ˆ[˜İ[Ûˆ˜]ÓYØXŞQœ˜[YUÊİØ[˜\ËÜ™XY
-HÂˆYˆ
-XİXØ[˜\È]šY[ÈYÙ[ÛY]H]šY[ËšY[ÕÚY]šY[ËšY[ÒZYÚ
-H™]\›Â‚ˆÛÛœİÈHX]›X^
-KÚ[™İËš[›™\•ÚY
-NÂˆÛÛœİšHX]›X^
-KÚ[™İËš[›™\’ZYÚ
-NÂˆÛÛœİØØ[VHØ[˜\ËÚYÈÎÂˆÛÛœİØØ[VHHØ[˜\ËšZYÚÈšÂˆÛÛœİÈHÙ[ÛY]NÂˆÛÛœİ^[™HÛ[\
-[X™\ŠÜ™XY
-HKKËŒŠNÂˆÛÛœİÈHËÈ
-ˆ^[™ÂˆÛÛœİHËš
-ˆ^[™ÂˆÛÛœİHË˜ŞHÈÈÂˆÛÛœİHHË˜ŞHHÈÂ‚ˆİ˜ÛX\”™Xİ
-Ø[˜\ËÚYØ[˜\ËšZYÚ
-NÂ‚ˆ]ÈÜ˜ÖÜ˜ÖKÜ˜ÕËÜ˜ÒHHÙ][XšY[Ûİ\˜ÙPÜ›Ü
+    const nearMask = `radial-gradient(ellipse ${cssPx(nearRadiusX)} ${cssPx(nearRadiusY)} at ${cssPx(cx)} ${cssPx(cy)}, rgba(0,0,0,1) 0%, rgba(0,0,0,.98) 34%, rgba(0,0,0,.78) 60%, rgba(0,0,0,0) 100%)`;
+    const farMask = `radial-gradient(ellipse ${cssPx(farRadiusX)} ${cssPx(farRadiusY)} at ${cssPx(cx)} ${cssPx(cy)}, rgba(0,0,0,1) 0%, rgba(0,0,0,.90) 40%, rgba(0,0,0,.54) 70%, rgba(0,0,0,0) 100%)`;
 
-NÂˆÛÛœİÜ˜Ô˜][ÈHÜ˜ÕÈÈÜ˜ÒÂˆÛÛœİİ˜][ÈHÈÈÂˆYˆ
-Ü˜Ô˜][Èˆİ˜][ÊHÂˆÛÛœİš]YÈHÜ˜Ò
-ˆİ˜][ÎÂˆÜ˜Ö
-ÏH
-Ü˜ÕÈHš]YÊHÈÂˆÜ˜ÕÈHš]YÎÂˆH[ÙHÂˆÛÛœİš]YHÜ˜ÕÈÈİ˜][ÎÂˆÜ˜ÖH
-ÏH
-Ü˜ÒHš]Y
-HÈÂˆÜ˜ÒHš]YÂˆB‚ˆHÂˆİ™˜]Ò[XYÙJšY[ËÜ˜ÖÜ˜ÖKÜ˜ÕËÜ˜Òˆ
-ˆØØ[VH
-ˆØØ[VKÈ
-ˆØØ[V
-ˆØØ[VJNÂˆHØ]Ú
-ÊHßBˆB‚ˆ[˜İ[Ûˆ˜YP[P]
-
-HÂˆÛÛœİİ\HÛ[\
+    nearCanvas.style.webkitMaskImage = nearMask;
+    nearCanvas.style.maskImage = nearMask;
+    farCanvas.style.webkitMaskImage = farMask;
+    farCanvas.style.maskImage = farMask;
+  }
 
-[X™\ŠÙ][™ÜËœÜ™XY˜YTİ\
-H
-HÈLLKMJNÂˆYˆ
-HX]›X^
-İ\
-JH™]\›ˆNÂˆÛÛœİHHÛ[\
+  function ensureDetectionCanvas() {
+    if (detectionCanvas) return;
+    detectionCanvas = document.createElement('canvas');
+    detectionCanvas.width = 192;
+    detectionCanvas.height = 108;
+    detectionCtx = detectionCanvas.getContext('2d', {
+      alpha: false,
+      willReadFrequently: true,
+      desynchronized: true
+    });
+  }
 
-HX]›X^
-İ\
-JHÈX]›X^
-ŒKHHX]›X^
-İ\
-JKJNÂˆÛÛœİİ\™HHÛ[\
-[X™\ŠÙ][™ÜËœÜ™XY˜YPİ\™JHÍKKL
-NÂˆÛÛœİ^Û™[HÛ[\
-HÈİ\™KŒK
-NÂˆ™]\›ˆX]œİÊHHK^Û™[
-NÂˆB‚ˆ[˜İ[Ûˆ[œİ\™TØ[\PØ[˜\Ê
-HÂˆYˆ
-Ø[\PØ[˜\ÊH™]\›ÂˆØ[\PØ[˜\ÈHØİ[Y[˜Ü™X]Q[[Y[
-	ØØ[˜\ÉÊNÂˆØ[\PØ[˜\ËÚYHNLÂˆØ[\PØ[˜\ËšZYÚHLÂˆØ[\PİHØ[\PØ[˜\Ë™Ù]ÛÛ^
-	Ì™	ËÂˆ[Nˆ˜[ÙKˆ\Ş[˜Ú›Ûš^™YˆYBˆJNÂˆB‚ˆ[˜İ[Ûˆ\]P[XšY[Ø[\J
-HÂˆYˆ
-\Ù][™ÜËœ\™›Ü›X[˜ÙS[ÙH]šY[È]šY[ËšY[ÕÚY]šY[ËšY[ÒZYÚ
-H™]\›ˆ[Âˆ[œİ\™TØ[\PØ[˜\Ê
-NÂˆYˆ
-\Ø[\Pİ
-H™]\›ˆ[ÂˆÛÛœİÈÜ›ÜÜ˜ÖÜ˜ÖKÜ˜ÕËÜ˜ÒHHÙ][XšY[Ûİ\˜ÙPÜ›Ü
+  function resetBarDetection() {
+    barHistory = [];
+    barCrop = { top: 0, bottom: 0, left: 0, right: 0 };
+    lastBarDetection = 0;
+    barDetectionFailed = false;
+    updateBarStatus();
+    applyVideoFill();
+  }
 
-NÂˆHÂˆØ[\Pİ™˜]Ò[XYÙJšY[ËÜ˜ÖÜ˜ÖKÜ˜ÕËÜ˜ÒØ[\PØ[˜\ËÚYØ[\PØ[˜\ËšZYÚ
-NÂˆ™]\›ˆÈÜ›ÜÛİ\˜ÙNˆØ[\PØ[˜\ËÜ˜ÖˆÜ˜ÖNˆÜ˜ÕÎˆØ[\PØ[˜\ËÚYÜ˜ÒˆØ[\PØ[˜\ËšZYÚNÂˆHØ]Ú
-ÊHÂˆ™]\›ˆ[ÂˆBˆB‚ˆ[˜İ[Ûˆ˜]ÑYÙT›Ú™XİÜŠİØ[˜\Ë\İ[˜ÙPÜÜÔ˜\ˆH˜[ÙKØ[\YH[
-HÂˆYˆ
-XİXØ[˜\È]šY[ÈYÙ[ÛY]H]šY[ËšY[ÕÚY]šY[ËšY[ÒZYÚ
-H™]\›ÂˆÛÛœİÈHX]›X^
-KÚ[™İËš[›™\•ÚY
-NÂˆÛÛœİšHX]›X^
-KÚ[™İËš[›™\’ZYÚ
-NÂˆÛÛœİŞHØ[˜\ËÚYÈÎÂˆÛÛœİŞHHØ[˜\ËšZYÚÈšÂˆÛÛœİ˜]ÈHÙ][XšY[Ûİ\˜ÙPÜ›Ü
+  function lineStats(data, width, height, horizontal, index) {
+    let count = 0;
+    let dark = 0;
+    let sum = 0;
+    let sum2 = 0;
+    let sumR = 0, sumG = 0, sumB = 0;
+    const sensitivity = clamp(Number(settings.barDetectionSensitivity) || 20, 10, 90);
+    const darkThreshold = 10 + sensitivity * 0.36;
 
-NÂˆÛÛœİÜ›ÜHØ[\YË˜Ü›Ü˜]Ë˜Ü›ÜÂˆÛÛœİÛİ\˜ÙHHØ[\YËœÛİ\˜ÙHšY[ÎÂˆÛÛœİÜ˜ÖHØ[\YËœÜ˜ÖÏÈ˜]ËœÜ˜ÖÂˆÛÛœİÜ˜ÖHHØ[\YËœÜ˜ÖHÏÈ˜]ËœÜ˜ÖNÂˆÛÛœİÜ˜ÕÈHØ[\YËœÜ˜ÕÈÏÈ˜]ËœÜ˜ÕÎÂˆÛÛœİÜ˜ÒHØ[\YËœÜ˜ÒÏÈ˜]ËœÜ˜ÒÂˆÛÛœİˆHÙ][XšY[ÛÛ[™Xİ
-Ü›Ü
-NÂ‚ˆİ˜ÛX\”™Xİ
-Ø[˜\ËÚYØ[˜\ËšZYÚ
-NÂˆİœØ]™J
-NÂˆİ™ÛØ˜[ÛÛ\ÜÚ]SÜ\˜][ÛˆH	ÜÛİ\˜ÙK[İ™\‰ÎÂˆİš[XYÙTÛ[Ûİ[™Ñ[˜X›YHYNÂˆİš[XYÙTÛ[Ûİ[™Ô]X[]HHÙ][™ÜËœ\™›Ü›X[˜ÙS[ÙHÈ	ÛYY][IÈˆ	ÚYÚ	ÎÂ‚ˆÛÛœİYÙT˜][ÈHÛ[\
+    // Ignore the outer 4% at the corners: encoded logos/noise there should not
+    // destabilize an otherwise solid bar.
+    if (horizontal) {
+      const x0 = Math.floor(width * 0.04);
+      const x1 = Math.ceil(width * 0.96);
+      for (let x = x0; x < x1; x++) {
+        const p = (index * width + x) * 4;
+        const r = data[p], g = data[p + 1], b = data[p + 2];
+        const lum = r * 0.2126 + g * 0.7152 + b * 0.0722;
+        count++; sum += lum; sum2 += lum * lum;
+        sumR += r; sumG += g; sumB += b;
+        if (lum <= darkThreshold) dark++;
+      }
+    } else {
+      const y0 = Math.floor(height * 0.04);
+      const y1 = Math.ceil(height * 0.96);
+      for (let y = y0; y < y1; y++) {
+        const p = (y * width + index) * 4;
+        const r = data[p], g = data[p + 1], b = data[p + 2];
+        const lum = r * 0.2126 + g * 0.7152 + b * 0.0722;
+        count++; sum += lum; sum2 += lum * lum;
+        sumR += r; sumG += g; sumB += b;
+        if (lum <= darkThreshold) dark++;
+      }
+    }
 
-[X™\ŠÙ][™ÜË™YÙTÚ^™JHLŠHÈLŒ‹ŒÌŠNÂˆÛÛœİÜ˜Ğ˜[™HX]›X^
-‹Ü˜ÕÈ
-ˆYÙT˜][ÊNÂˆÛÛœİÜ˜Ğ˜[™HHX]›X^
-‹Ü˜Ò
-ˆYÙT˜][ÊNÂˆÛÛœİ\Ü^P˜[™HX]›X^
-‹È
-ˆYÙT˜][ÊNÂˆÛÛœİ\Ü^P˜[™HHX]›X^
-‹š
-ˆYÙT˜][ÊNÂˆËÈÜšYÚ[˜[ŒKŒ\ÙYH
-ÈLˆ^Y\œÈ
-MšY[È˜]Ò[XYÙHØ[È\ˆ[XšY[œ˜[YJK‚ˆËÈ\™›Ü›X[˜ÙH[ÙH\Ù\È™]Ù\ˆ›Ú™Xİ[ÛœÈ[™]ÈÔÔÈ›\ˆ[\œÛ]HHØ\Ë‚ˆÛÛœİ^Y\œÈHÙ][™ÜËœ\™›Ü›X[˜ÙS[ÙHÈ
-˜\ˆÈHˆ
-Hˆ
-˜\ˆÈLˆˆJNÂˆÛÛœİ[TØØ[HH˜\ˆÈŒŒˆŒÎÂ‚ˆÛÛœİ˜]ÈH
-ÖÖKÕËÒKË[JHOˆÂˆİ™ÛØ˜[[HHÛ[\
-[KJNÂˆHÂˆİ™˜]Ò[XYÙJÛİ\˜ÙKÖÖKÕËÒˆ
-ˆŞH
-ˆŞKÈ
-ˆŞ
-ˆŞJNÂˆHØ]Ú
-ÊHßBˆNÂ‚ˆ›Üˆ
-]HH^Y\œÎÈHHNÈKKJHÂˆÛÛœİHHÈ^Y\œÎÂˆÛÛœİ\İH\İ[˜ÙPÜÜÔ
-ˆÂˆÛÛœİ[HH˜YP[P]
-
-H
-ˆ[TØØ[NÂˆÛÛœİÚYQÜ›İÈH\İ
-ˆÂ‚ˆ˜]ÊÜ˜ÖÜ˜ÖKÜ˜ÕËÜ˜Ğ˜[™Kˆ‹HÚYQÜ›İË‹HH\İ‹È
-ÈÚYQÜ›İÈ
-ˆ‹\İ
-È\Ü^P˜[™K[JNÂˆ˜]ÊÜ˜ÖÜ˜ÖH
-ÈÜ˜ÒHÜ˜Ğ˜[™KÜ˜ÕËÜ˜Ğ˜[™Kˆ‹HÚYQÜ›İË‹H
-È‹šH\Ü^P˜[™K‹È
-ÈÚYQÜ›İÈ
-ˆ‹\İ
-È\Ü^P˜[™K[JNÂˆ˜]ÊÜ˜ÖÜ˜ÖKÜ˜Ğ˜[™Ü˜Òˆ‹H\İ‹HHÚYQÜ›İË\İ
-È\Ü^P˜[™‹š
-ÈÚYQÜ›İÈ
-ˆ‹[JNÂˆ˜]ÊÜ˜Ö
-ÈÜ˜ÕÈHÜ˜Ğ˜[™Ü˜ÖKÜ˜Ğ˜[™Ü˜Òˆ‹
-È‹ÈH\Ü^P˜[™‹HHÚYQÜ›İË\İ
-È\Ü^P˜[™‹š
-ÈÚYQÜ›İÈ
-ˆ‹[JNÂ‚ˆËÈ[ˆ\™›Ü›X[˜ÙH[ÙHÛÜ›™\œÈÛ›H™YYÛÈ[˜ÚÜˆ›Ú™Xİ[ÛœÈ\ˆ^Y\ˆİXÚË‚ˆÛÛœİ˜]ĞÛÜ›™\œÈH\Ù][™ÜËœ\™›Ü›X[˜ÙS[ÙHHOOH^Y\œÈHOOHNÂˆYˆ
-˜]ĞÛÜ›™\œÊHÂˆÛÛœİÛÜ›™\•ÈHX]›X^
-Ü˜Ğ˜[™Ü˜ÕÈ
-ˆŒL
-NÂˆÛÛœİÛÜ›™\’HX]›X^
-Ü˜Ğ˜[™KÜ˜Ò
-ˆŒL
-NÂˆÛÛœİÛÜ›™\‘H\İ
-ˆÍÂˆÛÛœİØHH[H
-ˆÌÂˆ˜]ÊÜ˜ÖÜ˜ÖKÛÜ›™\•ËÛÜ›™\’ˆ‹HÛÜ›™\‘‹HHÛÜ›™\‘ÛÜ›™\‘
-È\Ü^P˜[™
-ˆKKÛÜ›™\‘
-È\Ü^P˜[™H
-ˆKKØJNÂˆ˜]ÊÜ˜Ö
-ÈÜ˜ÕÈHÛÜ›™\•ËÜ˜ÖKÛÜ›™\•ËÛÜ›™\’ˆ‹
-È‹ÈH\Ü^P˜[™
-ˆKK‹HHÛÜ›™\‘ÛÜ›™\‘
-È\Ü^P˜[™
-ˆKKÛÜ›™\‘
-È\Ü^P˜[™H
-ˆKKØJNÂˆ˜]ÊÜ˜ÖÜ˜ÖH
-ÈÜ˜ÒHÛÜ›™\’ÛÜ›™\•ËÛÜ›™\’ˆ‹HÛÜ›™\‘‹H
-È‹šH\Ü^P˜[™H
-ˆKKÛÜ›™\‘
-È\Ü^P˜[™
-ˆKKÛÜ›™\‘
-È\Ü^P˜[™H
-ˆKKØJNÂˆ˜]ÊÜ˜Ö
-ÈÜ˜ÕÈHÛÜ›™\•ËÜ˜ÖH
-ÈÜ˜ÒHÛÜ›™\’ÛÜ›™\•ËÛÜ›™\’ˆ‹
-È‹ÈH\Ü^P˜[™
-ˆKK‹H
-È‹šH\Ü^P˜[™H
-ˆKKÛÜ›™\‘
-È\Ü^P˜[™
-ˆKKÛÜ›™\‘
-È\Ü^P˜[™H
-ˆKKØJNÂˆBˆBˆİœ™\İÜ™J
-NÂˆB‚ˆ[˜İ[Ûˆ˜]ÊÈH\™›Ü›X[˜ÙK››İÊ
-JHÂˆYˆ
-XXİ]™J
-H]šY[È\›ÛİØİ[Y[šY[ŠH™]\›Âˆ]œÈHÛ[\
-[X™\ŠÙ][™ÜË™œÊHÌKŒ
-NÂˆËÈ[XšY[YÚÙ\È›İ™YYÈ™Yœ™\Ú\È˜\İ\ÈHšY[ËˆÙY\[™È]™[İÈBˆËÈšY[ÉÜÈØY[˜ÙHÚ]™\ÈHXÛÙ\‹ØÛÛ\ÜÚ]ÜˆXY›ÛÛH[™™]™[È^X˜XÚÈ›ÜË‚ˆYˆ
-Ù][™ÜËœ\™›Ü›X[˜ÙS[ÙJHœÈHX]›Z[ŠœË
-NÂˆÛÛœİZ[’[\˜[HLÈœÎÂˆYˆ
-ÈH\İ˜]ÈZ[’[\˜[
-H™]\›Âˆ\İ˜]ÈHÎÂˆœ˜[YTÙ\šX[
-ÊÎÂ‚ˆ™\Ú^™PØ[˜\ÕÕšY]ÜÜ
-™X\Ø[˜\Ë™X\İ˜[ÙJNÂˆ™\Ú^™PØ[˜\ÕÕšY]ÜÜ
-˜\Ø[˜\Ë˜\İYJNÂˆ\]QÙ[ÛY]J˜[ÙJNÂˆ]Xİ˜\œÊÊNÂˆÛÛœİHH\š]™Y[XšY[
+    const mean = count ? sum / count : 255;
+    const variance = count ? Math.max(0, sum2 / count - mean * mean) : 999;
+    return {
+      mean,
+      std: Math.sqrt(variance),
+      darkRatio: count ? dark / count : 0,
+      r: count ? sumR / count : 255,
+      g: count ? sumG / count : 255,
+      b: count ? sumB / count : 255
+    };
+  }
 
-NÂˆYˆ
-Ù][™ÜË˜[T›Ú™XİÜŠHÂˆÛÛœİØ[\YH\]P[XšY[Ø[\J
-NÂˆËÈH˜\ˆšY[\ÈX]š[H›\œ™Y[™Ú[™Ù\ÈÛİÛKˆ\][™È]]™\HÙXÛÛ™ˆËÈ[XšY[œ˜[YH[[Üİ[™\È]È™[™\ˆÛÜİÚ]İ]š\ÚX›HY\‹‚ˆYˆ
-\Ù][™ÜËœ\™›Ü›X[˜ÙS[ÙHœ˜[YTÙ\šX[	HˆOOH
-HÂˆ˜]ÑYÙT›Ú™XİÜŠ˜\İ˜\Ø[˜\ËK™˜\‘\İ[˜ÙKYKØ[\Y
-NÂˆBˆ˜]ÑYÙT›Ú™XİÜŠ™X\İ™X\Ø[˜\ËK›™X\‘\İ[˜ÙK˜[ÙKØ[\Y
-NÂˆH[ÙHÂˆYˆ
-\Ù][™ÜËœ\™›Ü›X[˜ÙS[ÙHœ˜[YTÙ\šX[	HˆOOH
-HÂˆ˜]ÓYØXŞQœ˜[YUÊ˜\İ˜\Ø[˜\ËK™˜\”Ü™XY
-NÂˆBˆ˜]ÓYØXŞQœ˜[YUÊ™X\İ™X\Ø[˜\ËK›™X\”Ü™XY
-NÂˆBˆB‚ˆ[˜İ[ÛˆİÜœ˜[YSÛÜ
+  function lineLooksLikeBar(stats) {
+    const sensitivity = clamp(Number(settings.barDetectionSensitivity) || 20, 10, 90);
+    const darkThreshold = 10 + sensitivity * 0.36;
+    const requiredDarkRatio = 0.985 - sensitivity * 0.0012;
+    const isBlack = stats.darkRatio >= requiredDarkRatio && stats.mean <= darkThreshold + 5;
+    if (isBlack) return true;
 
-HÂˆYˆ
-šY[È	‰ˆ™˜ÒY	‰ˆšY[Ë˜Ø[˜Ù[šY[Ñœ˜[YPØ[˜XÚÊHÂˆHÈšY[Ë˜Ø[˜Ù[šY[Ñœ˜[YPØ[˜XÚÊ™˜ÒY
-NÈHØ]Ú
-ÊHßBˆBˆ™˜ÒYHÂˆYˆ
-˜Y’Y
-HØ[˜Ù[[š[X][Û‘œ˜[YJ˜Y’Y
-NÂˆ˜Y’YHÂˆB‚ˆ[˜İ[Ûˆİ\œ˜[YSÛÜ
+    if (!settings.detectColoredBars) return false;
+    // Colored-bar detection is intentionally conservative. Solid/near-solid colored
+    // mattes qualify, but ordinary flat areas in animation usually have more variance.
+    const maxChannel = Math.max(stats.r, stats.g, stats.b);
+    const minChannel = Math.min(stats.r, stats.g, stats.b);
+    return stats.std <= 2.8 && (maxChannel - minChannel) <= 18 && stats.mean <= 210;
+  }
 
-HÂˆİÜœ˜[YSÛÜ
+  function scanEdge(data, width, height, edge) {
+    const horizontal = edge === 'top' || edge === 'bottom';
+    const size = horizontal ? height : width;
+    const max = Math.floor(size * 0.38);
+    let run = 0;
+    let misses = 0;
 
-NÂˆYˆ
-]šY[ÈXXİ]™J
-JH™]\›Â‚ˆYˆ
-šY[Ëœ™\]Y\İšY[Ñœ˜[YPØ[˜XÚÊHÂˆÛÛœİÛ‘œ˜[YHH›İÈOˆÂˆYˆ
-\ÜÜÙY]šY[ÈXXİ]™J
-JH™]\›Âˆ˜]Ê›İÊNÂˆ™˜ÒYHšY[Ëœ™\]Y\İšY[Ñœ˜[YPØ[˜XÚÊÛ‘œ˜[YJNÂˆNÂˆ™˜ÒYHšY[Ëœ™\]Y\İšY[Ñœ˜[YPØ[˜XÚÊÛ‘œ˜[YJNÂˆ™]\›ÂˆB‚ˆÛÛœİÛÜH›İÈOˆÂˆYˆ
-\ÜÜÙY]šY[ÈXXİ]™J
-JH™]\›Âˆ˜]Ê›İÊNÂˆ˜Y’YH™\]Y\İ[š[X][Û‘œ˜[YJÛÜ
-NÂˆNÂˆ˜Y’YH™\]Y\İ[š[X][Û‘œ˜[YJÛÜ
-NÂˆB‚ˆ[˜İ[ÛˆYšY[Ó\İ[™\œÊŠHÂˆÉÛØYY]IË	ÜÙYZÙY	Ë	Ü^IË	Ü]\ÙIË	Ü™\Ú^™IË	İ[Y]\]I×K™›Ü‘XXÚ
-\HOˆÂˆ‹˜Y]™[\İ[™\Š\K
+    for (let i = 0; i < max; i++) {
+      const index = (edge === 'top' || edge === 'left') ? i : size - 1 - i;
+      const stats = lineStats(data, width, height, horizontal, index);
+      if (lineLooksLikeBar(stats)) {
+        run = i + 1;
+        misses = 0;
+      } else {
+        misses++;
+        // Tolerate a single noisy line at the border, but stop on a real content edge.
+        if (misses >= 2) break;
+      }
+    }
+    return run / size;
+  }
 
-HOˆÂˆÙ[ÛY]Q\HHYNÂˆ\]QÙ[ÛY]JYJNÂˆYˆ
-\HOOH	ÛØYY]IÈ\HOOH	ÜÙYZÙY	È\HOOH	Ü™\Ú^™IÊH]Xİ˜\œÊ\™›Ü›X[˜ÙK››İÊ
-KYJNÂˆ˜]Ê\™›Ü›X[˜ÙK››İÊ
-H
-ÈL
-NÂˆKÈ\ÜÚ]™NˆYHJNÂˆJNÂˆB‚ˆ[˜İ[ÛˆÛY\”›İÊX™[Ù^KZ[‹X^İ\İY™š^H	ÉIÊHÂˆÛÛœİ›İÈHØİ[Y[˜Ü™X]Q[[Y[
-	ÛX™[	ÊNÂˆ›İË˜Û\ÜÓ˜[YHH	Ø˜[K[Y[K\›İÈ˜[K[Y[K\ÛY\‹\›İÉÎÂˆ›İËš[›™\’SHÜ[ˆÛ\ÜÏH˜˜[K[Y[K[X™[‰ÛX™[OÜÜ[[œ]\OHœ˜[™ÙHˆZ[H‰ÛZ[ŸHˆX^H‰ÛX^Hˆİ\H‰Üİ\Hˆ]KZÙ^OH‰ÚÙ^_HÜ[ˆÛ\ÜÏH˜˜[K[Y[K]˜[YHÜÜ[˜ÂˆÛÛœİ[œ]H›İËœ]Y\TÙ[XİÜŠ	Ú[œ]	ÊNÂˆÛÛœİ˜[YHH›İËœ]Y\TÙ[XİÜŠ	Ë˜˜[K[Y[K]˜[YIÊNÂˆ[œ]˜[YHHÙ][™ÜÖÚÙ^WNÂˆÛÛœİŞ[˜ÈH
+  function centerLuminance(data, width, height) {
+    const x0 = Math.floor(width * 0.30), x1 = Math.ceil(width * 0.70);
+    const y0 = Math.floor(height * 0.30), y1 = Math.ceil(height * 0.70);
+    let sum = 0, count = 0;
+    for (let y = y0; y < y1; y += 2) {
+      for (let x = x0; x < x1; x += 2) {
+        const p = (y * width + x) * 4;
+        sum += data[p] * 0.2126 + data[p + 1] * 0.7152 + data[p + 2] * 0.0722;
+        count++;
+      }
+    }
+    return count ? sum / count : 0;
+  }
 
-HOˆÂˆÛÛœİˆH[X™\Š[œ]˜[YJNÂˆ˜[YK^ÛÛ[H	ÓX]œ›İ[™
-ˆ
-ˆL
-HÈLIÜİY™š^XÂˆNÂˆŞ[˜Ê
-NÂˆ[œ]˜Y]™[\İ[™\Š	Ú[œ]	Ë
+  function median(values) {
+    const a = values.slice().sort((x, y) => x - y);
+    if (!a.length) return 0;
+    const m = Math.floor(a.length / 2);
+    return a.length % 2 ? a[m] : (a[m - 1] + a[m]) / 2;
+  }
 
-HOˆÂˆÛÛœİ™^H[X™\Š[œ]˜[YJNÂˆÙ][™ÜÖÚÙ^WHH™^ÂˆŞ[˜Ê
-NÂˆÚ›ÛYKœİÜ˜YÙKœŞ[˜ËœÙ]
-ÈÚÙ^WNˆ™^JNÂˆJNÂˆ™]\›ˆ›İÎÂˆB‚ˆ[˜İ[ÛˆÙ[Xİ›İÊX™[Ù^KÜ[ÛœÊHÂˆÛÛœİ›İÈHØİ[Y[˜Ü™X]Q[[Y[
-	ÛX™[	ÊNÂˆ›İË˜Û\ÜÓ˜[YHH	Ø˜[K[Y[K\›İÉÎÂˆÛÛœİÙ[XİHØİ[Y[˜Ü™X]Q[[Y[
-	ÜÙ[Xİ	ÊNÂˆ›Üˆ
-ÛÛœİİ˜[YK^HÙˆÜ[ÛœÊHÂˆÛÛœİÜ[ÛˆHØİ[Y[˜Ü™X]Q[[Y[
-	ÛÜ[Û‰ÊNÂˆÜ[Û‹˜[YHH˜[YNÂˆÜ[Û‹^ÛÛ[H^ÂˆÙ[Xİ˜\[™
-Ü[ÛŠNÂˆBˆÙ[Xİ™]\Ù]šÙ^HHÙ^NÂˆÙ[Xİ˜[YHHİš[™ÊÙ][™ÜÖÚÙ^WJNÂˆÙ[Xİ˜Y]™[\İ[™\Š	ØÚ[™ÙIË
+  function updateStableBarCrop() {
+    const wanted = clamp(Math.round(Number(settings.barFramesAverage) || 5), 1, 30);
+    if (!barHistory.length) return;
+    const samples = barHistory.slice(-wanted);
+    const minSamples = Math.min(wanted, 3);
+    if (samples.length < minSamples) return;
 
-HOˆÂˆÙ][™ÜÖÚÙ^WHHÙ[Xİ˜[YNÂˆÚ›ÛYKœİÜ˜YÙKœŞ[˜ËœÙ]
-ÈÚÙ^WNˆÙ[Xİ˜[YHJNÂˆ\Tİ[\Ê
-NÂˆİ\œ˜[YSÛÜ
+    const next = {
+      top: median(samples.map(v => v.top)),
+      bottom: median(samples.map(v => v.bottom)),
+      left: median(samples.map(v => v.left)),
+      right: median(samples.map(v => v.right))
+    };
 
-NÂˆJNÂˆÛÛœİX™[Ü[ˆHØİ[Y[˜Ü™X]Q[[Y[
-	ÜÜ[‰ÊNÂˆX™[Ü[‹˜Û\ÜÓ˜[YHH	Ø˜[K[Y[K[X™[	ÎÂˆX™[Ü[‹^ÛÛ[HX™[Âˆ›İË˜\[™
-X™[Ü[‹Ù[Xİ
-NÂˆ™]\›ˆ›İÎÂˆB‚ˆ[˜İ[ÛˆÙÙÛT›İÊX™[Ù^JHÂˆÛÛœİ›İÈHØİ[Y[˜Ü™X]Q[[Y[
-	ÛX™[	ÊNÂˆ›İË˜Û\ÜÓ˜[YHH	Ø˜[K[Y[K\›İÈ˜[K[Y[K]ÙÙÛK\›İÉÎÂˆÛÛœİX™[Ü[ˆHØİ[Y[˜Ü™X]Q[[Y[
-	ÜÜ[‰ÊNÂˆX™[Ü[‹˜Û\ÜÓ˜[YHH	Ø˜[K[Y[K[X™[	ÎÂˆX™[Ü[‹^ÛÛ[HX™[ÂˆÛÛœİ[œ]HØİ[Y[˜Ü™X]Q[[Y[
-	Ú[œ]	ÊNÂˆ[œ]\HH	ØÚXÚØ›Ş	ÎÂˆ[œ]™]\Ù]šÙ^HHÙ^NÂˆ[œ]˜ÚXÚÙYHH\Ù][™ÜÖÚÙ^WNÂˆ[œ]˜Y]™[\İ[™\Š	ØÚ[™ÙIË
+    // Ignore sub-1.2% noise: real encoded bars are normally wider than this.
+    for (const key of Object.keys(next)) {
+      if (next[key] < 0.012) next[key] = 0;
+      next[key] = clamp(next[key], 0, 0.40);
+    }
 
-HOˆÂˆÙ][™ÜÖÚÙ^WHH[œ]˜ÚXÚÙYÂˆÚ›ÛYKœİÜ˜YÙKœŞ[˜ËœÙ]
-ÈÚÙ^WNˆ[œ]˜ÚXÚÙYJNÂˆ\Tİ[\Ê
-NÂˆJNÂˆ›İË˜\[™
-X™[Ü[‹[œ]
-NÂˆ™]\›ˆ›İÎÂˆB‚ˆ[˜İ[ÛˆÙXİ[ÛŠ]KÜ[ˆH˜[ÙJHÂˆÛÛœİ]Z[ÈHØİ[Y[˜Ü™X]Q[[Y[
-	Ù]Z[ÉÊNÂˆ]Z[Ë˜Û\ÜÓ˜[YHH	Ø˜[K[Y[K\ÙXİ[Û‰ÎÂˆ]Z[Ë›Ü[ˆHÜ[ÂˆÛÛœİİ[[X\HHØİ[Y[˜Ü™X]Q[[Y[
-	Üİ[[X\IÊNÂˆİ[[X\K^ÛÛ[H]NÂˆÛÛœİ›ÙHHØİ[Y[˜Ü™X]Q[[Y[
-	Ù]‰ÊNÂˆ›ÙK˜Û\ÜÓ˜[YHH	Ø˜[K[Y[K\ÙXİ[Û‹X›ÙIÎÂˆ]Z[Ë˜\[™
-İ[[X\K›ÙJNÂˆ™]\›ˆÈ]Z[Ë›ÙHNÂˆB‚ˆ[˜İ[Ûˆ\]SZ[šT^Y\“^Y\Š
-HÂˆYˆ
-\^Y\ŠH™]\›ÂˆHÂˆÛÛœİ™XİH^Y\‹™Ù]›İ[™[™ĞÛY[™Xİ
+    barCrop = next;
+    updateBarStatus();
+    applyVideoFill();
+  }
 
-NÂˆÛÛœİÜÈHÙ]ÛÛ\]Yİ[J^Y\ŠNÂˆÛÛœİÛ\ÜÕ^Hİš[™Ê^Y\‹˜Û\ÜÓ˜[YH	ÉÊNÂˆÛÛœİ]œÈH	Ü^Y\‹™Ù]]šX]J	Ù]K\ØÜ™Y[‰ÊH	ÉßH	Ü^Y\‹™Ù]]šX]J	Ù]K[[ÙIÊH	ÉßXÂˆÛÛœİ˜[YYZ[šHHÛZ[š_›Ø]ÛX[ÚK\İ
-	ØÛ\ÜÕ^H	Ø]œßX
-NÂˆÛÛœİš^YZ[šHH
-ÜËœÜÚ][ÛˆOOH	Ùš^Y	ÈÜËœÜÚ][ÛˆOOH	ÜİXÚŞIÊH	‰‚ˆ™XİÚYˆN	‰ˆ™XİšZYÚˆL	‰‚ˆ™XİÚY[›™\•ÚY
-ˆÎ	‰ˆ™XİšZYÚ[›™\’ZYÚ
-ˆÂˆ^Y\‹ÙÙÛP]šX]J	Ù]KX˜[K[Z[šK\^Y\‰Ë˜[YYZ[šHš^YZ[šJNÂˆHØ]Ú
-ÊHßBˆB‚ˆ\Ş[˜È[˜İ[Ûˆ\T™\Ù]
-˜[YJHÂˆÛÛœİ™\Ù]H‘TÑUÖÛ˜[YWNÂˆYˆ
-\™\Ù]
-H™]\›ÂˆØš™Xİ˜\ÜÚYÛŠÙ][™ÜË™\Ù]
-NÂˆ]ØZ]Ú›ÛYKœİÜ˜YÙKœŞ[˜ËœÙ]
-™\Ù]
-NÂˆ\Tİ[\Ê
-NÂˆ\]SZ[šT^Y\“^Y\Š
-NÂˆ\]SX\ÚÜÊ
-NÂˆ˜]Ê\™›Ü›X[˜ÙK››İÊ
-H
-ÈL
-NÂˆİ\œ˜[YSÛÜ
+  function detectBars(ts = performance.now(), force = false) {
+    if (!video || !video.videoWidth || !video.videoHeight) return;
+    if (!settings.removeHorizontalBars && !settings.removeVerticalBars && !settings.detectColoredBars) {
+      if (barCrop.top || barCrop.bottom || barCrop.left || barCrop.right) resetBarDetection();
+      return;
+    }
+    const detectionInterval = settings.performanceMode ? 700 : 320;
+    if (!force && ts - lastBarDetection < detectionInterval) return;
+    lastBarDetection = ts;
 
-NÂˆYˆ
-Ù][™ÜÔ[™[Ëš\ĞÛÛ›™XİY
-HÂˆÙ][™ÜÔ[™[œ]Y\TÙ[XİÜ[
-	ÖÙ]KZÙ^WIÊK™›Ü‘XXÚ
-ÛÛ›ÛOˆÂˆÛÛœİÙ^HHÛÛ›Û™]\Ù]šÙ^NÂˆYˆ
-JÙ^H[ˆÙ][™ÜÊJH™]\›ÂˆYˆ
-ÛÛ›Û\HOOH	ØÚXÚØ›Ş	ÊHÛÛ›Û˜ÚXÚÙYHH\Ù][™ÜÖÚÙ^WNÂˆ[ÙHÛÛ›Û˜[YHHÙ][™ÜÖÚÙ^WNÂˆÛÛœİ˜[YHHÛÛ›Û˜ÛÜÙ\İ
-	Ë˜˜[K[Y[K\›İÉÊOËœ]Y\TÙ[XİÜŠ	Ë˜˜[K[Y[K]˜[YIÊNÂˆYˆ
-˜[YH	‰ˆÛÛ›Û\HOOH	Ü˜[™ÙIÊHÂˆÛÛœİİY™š^HÙ^HOOH	ÙœÉÈÈ	ÈœÉÈˆÙ^HOOH	Ù˜YQ\˜][Û‰ÈÈ	È\ÉÈˆÙ^HOOH	Ø˜\‘œ˜[Y\Ğ]™\˜YÙIÈÈ	È9n)ÉÈˆ	ÉIÎÂˆ˜[YK^ÛÛ[H	ÓX]œ›İ[™
-[X™\ŠÛÛ›Û˜[YJH
-ˆL
-HÈLIÜİY™š^XÂˆBˆJNÂˆBˆB‚ˆ[˜İ[Ûˆ™\Ù]˜\Š
-HÂˆÛÛœİÜ˜\HØİ[Y[˜Ü™X]Q[[Y[
-	Ù]‰ÊNÂˆÜ˜\˜Û\ÜÓ˜[YHH	Ø˜[K[Y[K\™\Ù]ÉÎÂˆÛÛœİ]HHØİ[Y[˜Ü™X]Q[[Y[
-	Ù]‰ÊNÂˆ]K˜Û\ÜÓ˜[YHH	Ø˜[K[Y[K\™\Ù]]]IÎÂˆ]K^ÛÛ[H	ùoêú`'úh¡:+¯‰ÎÂˆÛÛœİ]ÛœÈHØİ[Y[˜Ü™X]Q[[Y[
-	Ù]‰ÊNÂˆ]ÛœË˜Û\ÜÓ˜[YHH	Ø˜[K[Y[K\™\Ù]X]ÛœÉÎÂˆÖÉÛYÚ	Ë	ú/nùn©‰×KÉÜİ[™\™	Ë	ù¨!ùaá»ï"U;ï"I×KÉÚX]IË	úaãyn©‰×WK™›Ü‘XXÚ
+    ensureDetectionCanvas();
+    try {
+      detectionCtx.drawImage(video, 0, 0, detectionCanvas.width, detectionCanvas.height);
+      const image = detectionCtx.getImageData(0, 0, detectionCanvas.width, detectionCanvas.height);
+      const data = image.data;
+      const w = detectionCanvas.width, h = detectionCanvas.height;
 
-ÚÙ^KX™[JHOˆÂˆÛÛœİˆHØİ[Y[˜Ü™X]Q[[Y[
-	Ø]Û‰ÊNÂˆ‹\HH	Ø]Û‰ÎÂˆ‹^ÛÛ[HX™[Âˆ‹˜Y]™[\İ[™\Š	ØÛXÚÉËHOˆÈKœİÜ›ÜYØ][ÛŠ
-NÈ\T™\Ù]
-Ù^JNÈJNÂˆ]ÛœË˜\[™
-ŠNÂˆJNÂˆÜ˜\˜\[™
-]K]ÛœÊNÂˆ™]\›ˆÜ˜\ÂˆB‚ˆ[˜İ[ÛˆÜ™X]TÙ][™ÜÔ[™[
+      // During a near-black scene there is not enough information to distinguish a
+      // cinematic bar from image content. Keep the previous stable result instead.
+      if (!settings.detectColoredBars && centerLuminance(data, w, h) < 15) return;
 
-HÂˆYˆ
-\^Y\ˆÙ][™ÜÔ[™[Ëš\ĞÛÛ›™XİY
-H™]\›Â‚ˆÙ][™ÜÔ[™[HØİ[Y[˜Ü™X]Q[[Y[
-	Ù]‰ÊNÂˆÙ][™ÜÔ[™[˜Û\ÜÓ˜[YHH	Ø˜[K\^Y\‹\Ù][™ÜË\[™[	ÎÂˆÙ][™ÜÔ[™[šY[ˆHYNÂ‚ˆÛÛœİÜHØİ[Y[˜Ü™X]Q[[Y[
-	Ù]‰ÊNÂˆÜ˜Û\ÜÓ˜[YHH	Ø˜[K[Y[K]Ü	ÎÂˆÜš[›™\’SHİ›Û™Ïš[Xš[H9ã«ùh ùabOÜİ›Û™Ï]Ûˆ\OH˜]ÛˆˆÛ\ÜÏH˜˜[K[Y[KXÛÜÙHˆ\šXK[X™[H¹alúeëH°åÏØ]Û˜ÂˆÜœ]Y\TÙ[XİÜŠ	Ë˜˜[K[Y[KXÛÜÙIÊK˜Y]™[\İ[™\Š	ØÛXÚÉË
+      const detected = {
+        top: settings.removeHorizontalBars ? scanEdge(data, w, h, 'top') : 0,
+        bottom: settings.removeHorizontalBars ? scanEdge(data, w, h, 'bottom') : 0,
+        left: settings.removeVerticalBars ? scanEdge(data, w, h, 'left') : 0,
+        right: settings.removeVerticalBars ? scanEdge(data, w, h, 'right') : 0
+      };
 
-HOˆÈÙ][™ÜÔ[™[šY[ˆHYNÈJNÂˆÙ][™ÜÔ[™[˜\[™
-Ü
-NÂ‚ˆÛÛœİÙ[™\˜[HÙXİ[ÛŠ	ú+¯¹ïk‰ÊNÂˆÙ[™\˜[˜›ÙK˜\[™
-ÙÙÛT›İÊ	ùd+ùå*9ã«ùh ùabIË	Ù[˜X›Y	ÊJNÂˆÙ][™ÜÔ[™[˜\[™
-Ù[™\˜[™]Z[ÊNÂ‚ˆÛÛœİ]X[]HHÙXİ[ÛŠ	ú-*:aãÉÊNÂˆ]X[]K˜›ÙK˜\[™
-ˆÛY\”›İÊ	ù®,¹§äùb!º/ª9ã¡ÉË	Ü™[™\”]X[]IËM‹LK	ÉIÊKˆÛY\”›İÊ	ùn)ùã¡ù."ºfd	Ë	ÙœÉËLŒK	ÈœÉÊBˆ
-NÂˆÙ][™ÜÔ[™[˜\[™
-]X[]K™]Z[ÊNÂ‚ˆÛÛœİXY\ˆHÙXİ[ÛŠ	úhmzghºhmº`ê	ÊNÂˆXY\‹˜›ÙK˜\[™
-ˆÙÙÛT›İÊ	úhmº`ê9¨#ùiâùîâ9ïkºhm‰Ë	ÚXY\“Û•Ü	ÊKˆÛY\”›İÊ	úhmº`ê9¨#ùã«ùh ùabyolydãIË	ÚXY\[XšY[	ËLK	ÉIÊBˆ
-NÂˆÙ][™ÜÔ[™[˜\[™
-XY\‹™]Z[ÊNÂ‚ˆÛÛœİÛÛ[HÙXİ[ÛŠ	úhmzgh¹a¡yk®IÊNÂˆÛÛ[˜›ÙK˜\[™
-ˆÙÙÛT›İÊ	ùî«únäz ã9¦kÉË	İYP›XÚÉÊKˆÙÙÛT›İÊ	ù­ìz"lºhmzgh¹¥¡ùkeú` ºacIË	Ù\šÕ^Y\][Û‰ÊBˆ
-NÂˆÙ][™ÜÔ[™[˜\[™
-ÛÛ[™]Z[ÊNÂ‚ˆÛÛœİšY[ÔÙXİ[ÛˆHÙXİ[ÛŠ	ú)áºh¤IÊNÂˆÛÛœİØ[\HHØİ[Y[˜Ü™X]Q[[Y[
-	Ù]‰ÊNÂˆØ[\K˜Û\ÜÓ˜[YHH	Ø˜[K[Y[K\İ]XË\›İÉÎÂˆØ[\Kš[›™\’SH	ÏÜ[ºaáù¨-ù§iy®¤ÜÜ[¹.áz)áºh¤yå.úghØ‰ÎÂˆšY[ÔÙXİ[Û‹˜›ÙK˜\[™
-ˆØ[\KˆÙÙÛT›İÊ	ùo.ynez/¤ùaiy¨#ùâë9êâùb!¹l`‰Ë	ÜÙ\\˜]QP˜\‰ÊKˆÛY\”›İÊ	ùo.yney¨#ùã«ùh ùabyolydãIË	ÙP[XšY[	ËLK	ÉIÊKˆÙÙÛT›İÊ	ùéîúfi9¤«y¥/¹fj:/®yï&:näy¦eIË	Üİ\™\ÜÔ^Y\‘YÙTÚYİÉÊKˆÛY\”›İÊ	ú/®yï&:näy¦ey¢¤yb-‰Ë	ÙYÙTÚYİÔİ\™\ÜÚ[Û‰ËLK	ÉIÊBˆ
-NÂˆÙ][™ÜÔ[™[˜\[™
-šY[ÔÙXİ[Û‹™]Z[ÊNÂ‚ˆÛÛœİ˜\œÈHÙXİ[ÛŠ	ùéîúfi:näz/®y.#¹ojz"lº/®IÊNÂˆ˜\œË˜›ÙK˜\[™
-ˆÙÙÛT›İÊ	ú!ê¹bª9éîúfi9."¹."únäz/®IË	Ü™[[İ™RÜš^›Û[˜\œÉÊKˆÙÙÛT›İÊ	ú!ê¹bª9éîúfi9mé¹cìúnäz/®IË	Ü™[[İ™U™\XØ[˜\œÉÊKˆÙÙÛT›İÊ	ù¨à9­bùojz"lº/®IË	Ù]XİÛÛÜ™Y˜\œÉÊKˆÛY\”›İÊ	ù¨à9­bùàmy¥cùn©‰Ë	Ø˜\‘]Xİ[Û”Ù[œÚ]]š]IËLLK	ÉIÊKˆÛY\”›İÊ	ùnlùgaùn)ù¥l	Ë	Ø˜\‘œ˜[Y\Ğ]™\˜YÙIËKÌK	È9n)ÉÊKˆÛY\”›İÊ	ù¨à9­bù`cùéîÉË	Ø˜\‘]Xİ[Û“Ù™œÙ]	ËMKKŒK	ÉIÊKˆÛY\”›İÊ	ù¢bùbª9."¹."ú(àyb!ÉË	ÛX[X[Üš^›Û[Û\	ËŒK	ÉIÊKˆÛY\”›İÊ	ù¢bùbª9mé¹cìú(àyb!ÉË	ÛX[X[™\XØ[Û\	ËŒK	ÉIÊKˆÙÙÛT›İÊ	ùhjùaaz)áºh¤yb,:(àyb!ùc.¹gçÉË	Ùš[šY[ÕĞÜ›Ü	ÊBˆ
-NÂˆÛÛœİİ]\Ô›İÈHØİ[Y[˜Ü™X]Q[[Y[
-	Ù]‰ÊNÂˆİ]\Ô›İË˜Û\ÜÓ˜[YHH	Ø˜[K[Y[K\İ]XË\›İÉÎÂˆİ]\Ô›İËš[›™\’SH	ÏÜ[¹odùbcy¨à9­bÏÜÜ[Ø‰ÎÂˆ˜\”İ]\Ñ[[HHİ]\Ô›İËœ]Y\TÙ[XİÜ	Ø‰ÊNÂˆ˜\œË˜›ÙK˜\[™
-İ]\Ô›İÊNÂˆ\]P˜\”İ]\Ê
-NÂˆÙ][™ÜÔ[™[˜\[™
-˜\œË™]Z[ÊNÂ‚ˆÛÛœİš[\œÈHÙXİ[ÛŠ	ù®é:eg	ÊNÂˆš[\œË˜›ÙK˜\[™
-ˆÛY\”›İÊ	ù.«¹n©‰Ë	ØœšYÚ™\ÜÉËLMLK	ÉIÊKˆÛY\”›İÊ	ú"l¹ojIË	İšXœ˜[˜ÙIËLŒK	ÉIÊKˆÛY\”›İÊ	úilyd£9n©‰Ë	ÜØ]\˜][Û‰ËLŒK	ÉIÊBˆ
-NÂˆÙ][™ÜÔ[™[˜\[™
-š[\œË™]Z[ÊNÂ‚ˆÛÛœİ[XšY[HÙXİ[ÛŠ	ùã«ùh ùabIËYJNÂˆ[XšY[˜›ÙK˜\[™
-ˆÙÙÛT›İÊ	ú/®yï&9¢¥yolyfj	Ë	Ø[T›Ú™XİÜ‰ÊKˆÛY\”›İÊ	ùª(yìâ‰Ë	Ø›\‰ËLŒK	ÉIÊKˆÛY\”›İÊ	ù¢jy¥hú# ùfí	Ë	ÜÜ™XY	ËLŒK	ÉIÊKˆÛY\”›İÊ	ú/®yï&:aáù¨-ùk¯yn©‰Ë	ÙYÙTÚ^™IË‹Ì‹ŒK	ÉIÊKˆÛY\”›İÊ	ù¢jy¥hú(l9aãú-mùà®IË	ÜÜ™XY˜YTİ\	ËŒŒK	ÉIÊKˆÛY\”›İÊ	ù¢jy¥hú(l9aãù¦ì¹î¯ÉË	ÜÜ™XY˜YPİ\™IËKLK	ÉIÊKˆÛY\”›İÊ	ù­èyaiy¥íºeí	Ë	Ù˜YQ\˜][Û‰ËMLL	È\ÉÊBˆ
-NÂˆÛÛœİšY]ÒXY[™ÈHØİ[Y[˜Ü™X]Q[[Y[
-	Ù]‰ÊNÂˆšY]ÒXY[™Ë˜Û\ÜÓ˜[YHH	Ø˜[K[Y[K\İXšXY[™ÉÎÂˆšY]ÒXY[™Ë^ÛÛ[H	ú)á¹fï¹ª(yo#ÉÎÂˆ[XšY[˜›ÙK˜\[™
-šY]ÒXY[™ÊNÂˆ[XšY[˜›ÙK˜\[™
-Ù[Xİ›İÊ	ùd+ùå*9n ùl`	Ë	İšY]Ó[ÙIËÂˆÉØ[	Ë	ùaj:`ê	×KˆÉÛ›Ü›X[	Ë	ù¦kº`&¹ª(yo#É×KˆÉÙ[ØÜ™Y[‰Ë	ùaj9lcÈÈ9ïdzhmyaj9lcÉ×BˆJJNÂˆÙ][™ÜÔ[™[˜\[™
-[XšY[™]Z[ÊNÂˆÙ][™ÜÔ[™[˜\[™
-™\Ù]˜\Š
-JNÂ‚ˆ^Y\‹˜\[™
-Ù][™ÜÔ[™[
-NÂˆB‚ˆ[˜İ[Ûˆ[œİ\™T^Y\”Ù][™ÜĞ]ÛŠ
-HÂˆYˆ
-\^Y\Ëš\ĞÛÛ›™XİY
-H™]\›ÂˆYˆ
-Ù][™ÜĞ]ÛËš\ĞÛÛ›™XİY	‰ˆÙ][™ÜÔ[™[Ëš\ĞÛÛ›™XİY
-H™]\›ÂˆÙ][™ÜĞ]Û‹Ëœ™[[İ™J
-NÂˆÙ][™ÜÔ[™[Ëœ™[[İ™J
-NÂˆÙ][™ÜĞ]ÛˆH[ÂˆÙ][™ÜÔ[™[H[Â‚ˆÛÛœİ˜]]™TÙ][™ÜÈH^Y\‹œ]Y\TÙ[XİÜŠ	Ë˜œ\^Y\‹Xİ›\Ù][™ÉÊNÂˆÛÛœİÛÛ›ÛÈH˜]]™TÙ][™ÜÏËœ\™[[[Y[^Y\‹œ]Y\TÙ[XİÜŠ	Ë˜œ\^Y\‹XÛÛ›ÛX›İÛK\šYÚ	ÊNÂˆYˆ
-XÛÛ›ÛÊH™]\›Â‚ˆÙ][™ÜĞ]ÛˆHØİ[Y[˜Ü™X]Q[[Y[
-	Ù]‰ÊNÂˆÙ][™ÜĞ]Û‹˜Û\ÜÓ˜[YHH	Øœ\^Y\‹Xİ›Xˆ˜[KX[XšY[\^Y\‹X‰ÎÂˆÙ][™ÜĞ]Û‹]HH	ùã«ùh ùabz+¯¹ïk‰ÎÂˆÙ][™ÜĞ]Û‹œÙ]]šX]J	Ü›ÛIË	Ø]Û‰ÊNÂˆÙ][™ÜĞ]Û‹œÙ]]šX]J	İXš[™^	Ë	Ì	ÊNÂˆÙ][™ÜĞ]Û‹š[›™\’SH	ÏÜ[SÜÜ[‰ÎÂ‚ˆYˆ
-˜]]™TÙ][™ÜÈ	‰ˆ˜]]™TÙ][™ÜËœ\™[[[Y[OOHÛÛ›ÛÊHÛÛ›ÛËš[œÙ\™Y›Ü™JÙ][™ÜĞ]Û‹˜]]™TÙ][™ÜÊNÂˆ[ÙHÛÛ›ÛË˜\[™
-Ù][™ÜĞ]ÛŠNÂ‚ˆÜ™X]TÙ][™ÜÔ[™[
+      // A result that consumes most of the frame is a dark scene, not a letterbox.
+      if (detected.top + detected.bottom > 0.62 || detected.left + detected.right > 0.62) return;
 
-NÂ‚ˆÛÛœİÙÙÛHHHOˆÂˆOËœİÜ›ÜYØ][ÛŠ
-NÂˆYˆ
-\Ù][™ÜÔ[™[
-H™]\›ÂˆÙ][™ÜÔ[™[šY[ˆH\Ù][™ÜÔ[™[šY[ÂˆNÂˆÙ][™ÜĞ]Û‹˜Y]™[\İ[™\Š	ØÛXÚÉËÙÙÛJNÂˆÙ][™ÜĞ]Û‹˜Y]™[\İ[™\Š	ÚÙ^YİÛ‰ËHOˆÂˆYˆ
-KšÙ^HOOH	Ñ[\‰ÈKšÙ^HOOH	È	ÊHÙÙÛJJNÂˆJNÂˆB‚ˆ[˜İ[Ûˆ]XÚ
-›Ü˜ÙHH˜[ÙJHÂˆYˆ
-Z\ÕšY[ÔYÙJ
-JHÂˆYˆ
-›Ûİ
-H›Ûİœİ[K™\Ü^HH	Û›Û™IÎÂˆ\TYÙU[YJ
-NÂˆ™]\›ÂˆB‚ˆÛÛœİ™^šY[ÈHš[™šY[Ê
-NÂˆYˆ
-[™^šY[ÊHÂˆ[œİ\™T›Ûİ
+      barDetectionFailed = false;
+      barHistory.push(detected);
+      const wanted = clamp(Math.round(Number(settings.barFramesAverage) || 5), 1, 30);
+      if (barHistory.length > Math.max(30, wanted * 2)) barHistory.splice(0, barHistory.length - Math.max(30, wanted * 2));
+      updateStableBarCrop();
+    } catch (_) {
+      barDetectionFailed = true;
+      updateBarStatus();
+    }
+  }
 
-NÂˆ\Tİ[\Ê
-NÂˆ™]\›ÂˆB‚ˆÛÛœİÚ[™ÙYH™^šY[ÈOOHšY[ÎÂˆYˆ
-Ú[™ÙY›Ü˜ÙJHÂˆİÜœ˜[YSÛÜ
+  function effectiveBarCrop() {
+    const offset = clamp(Number(settings.barDetectionOffset) || 0, -5, 5) / 100;
+    const manualH = clamp(Number(settings.manualHorizontalClip) || 0, 0, 40) / 100;
+    const manualV = clamp(Number(settings.manualVerticalClip) || 0, 0, 40) / 100;
+    const auto = {
+      top: settings.removeHorizontalBars ? barCrop.top : 0,
+      bottom: settings.removeHorizontalBars ? barCrop.bottom : 0,
+      left: settings.removeVerticalBars ? barCrop.left : 0,
+      right: settings.removeVerticalBars ? barCrop.right : 0
+    };
+    return {
+      top: clamp(Math.max(manualH, auto.top + (auto.top ? offset : 0)), 0, 0.40),
+      bottom: clamp(Math.max(manualH, auto.bottom + (auto.bottom ? offset : 0)), 0, 0.40),
+      left: clamp(Math.max(manualV, auto.left + (auto.left ? offset : 0)), 0, 0.40),
+      right: clamp(Math.max(manualV, auto.right + (auto.right ? offset : 0)), 0, 0.40)
+    };
+  }
 
-NÂˆšY[ÈH™^šY[ÎÂˆ^Y\ˆHš[™^Y\ŠšY[ÊNÂˆ™\Ù]˜\‘]Xİ[ÛŠ
-NÂˆYšY[Ó\İ[™\œÊšY[ÊNÂˆÙ][™ÜĞ]ÛËœ™[[İ™J
-NÂˆÙ][™ÜÔ[™[Ëœ™[[İ™J
-NÂˆÙ][™ÜĞ]ÛˆH[ÂˆÙ][™ÜÔ[™[H[ÂˆB‚ˆ[œİ\™T›Ûİ
+  function applyVideoFill() {
+    if (!video) return;
+    const c = effectiveBarCrop();
+    const totalX = clamp(c.left + c.right, 0, 0.78);
+    const totalY = clamp(c.top + c.bottom, 0, 0.78);
+    if (!settings.fillVideoToCrop || (!totalX && !totalY)) {
+      video.removeAttribute('data-bali-fill-video');
+      video.style.removeProperty('--bali-fill-scale');
+      return;
+    }
+    const scale = Math.max(1 / Math.max(0.22, 1 - totalX), 1 / Math.max(0.22, 1 - totalY));
+    video.setAttribute('data-bali-fill-video', '1');
+    video.style.setProperty('--bali-fill-scale', String(Math.min(scale, 1.8)));
+  }
 
-NÂˆ\Tİ[\Ê
-NÂˆÙ[ÛY]Q\HHYNÂˆ\]QÙ[ÛY]JYJNÂˆ[œİ\™T^Y\”Ù][™ÜĞ]ÛŠ
-NÂˆ˜]Ê\™›Ü›X[˜ÙK››İÊ
-H
-ÈL
-NÂˆYˆ
-Ú[™ÙY›Ü˜ÙJHİ\œ˜[YSÛÜ
+  function updateBarStatus() {
+    if (!barStatusElem) return;
+    if (barDetectionFailed) {
+      barStatusElem.textContent = 'åƒç´ è¯»å–å—é™ Â· å¯ç”¨æ‰‹åŠ¨è£åˆ‡';
+      return;
+    }
+    const c = effectiveBarCrop();
+    const pct = v => `${(v * 100).toFixed(1)}%`;
+    if (!(c.top || c.bottom || c.left || c.right)) {
+      barStatusElem.textContent = 'æœªæ£€æµ‹åˆ°é»‘è¾¹';
+      return;
+    }
+    barStatusElem.textContent = `ä¸Š ${pct(c.top)} Â· ä¸‹ ${pct(c.bottom)} Â· å·¦ ${pct(c.left)} Â· å³ ${pct(c.right)}`;
+  }
 
-NÂ‚ˆ™\Ú^™SØœÙ\™\Ë™\ØÛÛ›™Xİ
+  function getAmbientSourceCrop() {
+    const crop = effectiveBarCrop();
+    let srcX = video.videoWidth * crop.left;
+    let srcY = video.videoHeight * crop.top;
+    let srcW = video.videoWidth * Math.max(0.05, 1 - crop.left - crop.right);
+    let srcH = video.videoHeight * Math.max(0.05, 1 - crop.top - crop.bottom);
 
-NÂˆ™\Ú^™SØœÙ\™\ˆH™]È™\Ú^™SØœÙ\™\Š
+    // Sample a tiny amount inside the detected picture. This intentionally affects only
+    // the ambient source and removes 1px encoded borders / player-edge dark lines.
+    const inset = 0.008;
+    srcX += srcW * inset;
+    srcY += srcH * inset;
+    srcW *= 1 - inset * 2;
+    srcH *= 1 - inset * 2;
+    return { crop, srcX, srcY, srcW, srcH };
+  }
 
-HOˆÂˆÙ[ÛY]Q\HHYNÂˆ\]QÙ[ÛY]JYJNÂˆ˜]Ê\™›Ü›X[˜ÙK››İÊ
-H
-ÈL
-NÂˆJNÂˆ™\Ú^™SØœÙ\™\‹›ØœÙ\™JšY[ÊNÂˆYˆ
-^Y\ŠH™\Ú^™SØœÙ\™\‹›ØœÙ\™J^Y\ŠNÂˆB‚ˆ\Ş[˜È[˜İ[ÛˆØYÙ][™ÜÊ
-HÂˆHÂˆÛÛœİØ]™YH]ØZ]Ú›ÛYKœİÜ˜YÙKœŞ[˜Ë™Ù]
-QUSÊNÂˆÙ][™ÜÈHÈ‹‹‘QUSË‹‹œØ]™YNÂˆHØ]Ú
-ÊHÂˆÙ][™ÜÈHÈ‹‹‘QUSÈNÂˆBˆB‚ˆ[˜İ[ÛˆØ]ÚYÙJ
-HÂˆ]]][Û“ØœÙ\™\Ë™\ØÛÛ›™Xİ
+  function getAmbientContentRect(crop) {
+    const g = geometry;
+    return {
+      x: g.x + g.w * crop.left,
+      y: g.y + g.h * crop.top,
+      w: g.w * Math.max(0.05, 1 - crop.left - crop.right),
+      h: g.h * Math.max(0.05, 1 - crop.top - crop.bottom)
+    };
+  }
 
-NÂˆ]]][Û“ØœÙ\™\ˆH™]È]]][Û“ØœÙ\™\Š
+  function drawLegacyFrameTo(ctx, canvas, spread) {
+    if (!ctx || !canvas || !video || !geometry || !video.videoWidth || !video.videoHeight) return;
 
-HOˆÂˆYˆ
-ØØ][Û‹š™YˆOOH\İ\›
-HÂˆ\İ\›HØØ][Û‹š™YÂˆÙ][Y[İ]
+    const vw = Math.max(1, window.innerWidth);
+    const vh = Math.max(1, window.innerHeight);
+    const scaleX = canvas.width / vw;
+    const scaleY = canvas.height / vh;
+    const g = geometry;
+    const expand = clamp(Number(spread) || 1, 1, 3.2);
+    const dw = g.w * expand;
+    const dh = g.h * expand;
+    const dx = g.cx - dw / 2;
+    const dy = g.cy - dh / 2;
 
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-HOˆ]XÚ
-YJKN
-NÂˆH[ÙHYˆ
-]šY[ÏËš\ĞÛÛ›™XİY\›ÛİËš\ĞÛÛ›™XİY\Ù][™ÜĞ]ÛËš\ĞÛÛ›™XİY
-HÂˆ]XÚ
-YJNÂˆBˆJNÂˆ]]][Û“ØœÙ\™\‹›ØœÙ\™JØİ[Y[™Øİ[Y[[[Y[ÈÚ[\İˆYKİX™YNˆYHJNÂ‚ˆÚ[™İË˜Y]™[\İ[™\Š	Ü™\Ú^™IË
+    let { srcX, srcY, srcW, srcH } = getAmbientSourceCrop();
+    const srcRatio = srcW / srcH;
+    const dstRatio = dw / dh;
+    if (srcRatio > dstRatio) {
+      const fittedW = srcH * dstRatio;
+      srcX += (srcW - fittedW) / 2;
+      srcW = fittedW;
+    } else {
+      const fittedH = srcW / dstRatio;
+      srcY += (srcH - fittedH) / 2;
+      srcH = fittedH;
+    }
 
-HOˆÂˆÙ[ÛY]Q\HHYNÂˆ\]QÙ[ÛY]JYJNÂˆ˜]Ê\™›Ü›X[˜ÙK››İÊ
-H
-ÈL
-NÂˆKÈ\ÜÚ]™NˆYHJNÂˆÚ[™İË˜Y]™[\İ[™\Š	ÜØÜ›Û	Ë
+    try {
+      ctx.drawImage(video, srcX, srcY, srcW, srcH,
+        dx * scaleX, dy * scaleY, dw * scaleX, dh * scaleY);
+    } catch (_) {}
+  }
 
-HOˆÈÙ[ÛY]Q\HHYNÈKÈ\ÜÚ]™NˆYHJNÂˆØİ[Y[˜Y]™[\İ[™\Š	Ù[ØÜ™Y[˜Ú[™ÙIË
+  function fadeAlphaAt(t) {
+    const start = clamp((Number(settings.spreadFadeStart) || 0) / 100, -0.5, 0.95);
+    if (t <= Math.max(0, start)) return 1;
+    const u = clamp((t - Math.max(0, start)) / Math.max(0.001, 1 - Math.max(0, start)), 0, 1);
+    const curve = clamp(Number(settings.spreadFadeCurve) || 35, 1, 100);
+    const exponent = clamp(25 / curve, 0.25, 4);
+    return Math.pow(1 - u, exponent);
+  }
 
-HOˆÈÙ[ÛY]Q\HHYNÈÙ][Y[İ]
+  function ensureSampleCanvas() {
+    if (sampleCanvas) return;
+    sampleCanvas = document.createElement('canvas');
+    sampleCanvas.width = 192;
+    sampleCanvas.height = 108;
+    sampleCtx = sampleCanvas.getContext('2d', {
+      alpha: false,
+      desynchronized: true
+    });
+  }
 
+  function updateAmbientSample() {
+    if (!settings.performanceMode || !video || !video.videoWidth || !video.videoHeight) return null;
+    ensureSampleCanvas();
+    if (!sampleCtx) return null;
+    const { crop, srcX, srcY, srcW, srcH } = getAmbientSourceCrop();
+    try {
+      sampleCtx.drawImage(video, srcX, srcY, srcW, srcH, 0, 0, sampleCanvas.width, sampleCanvas.height);
+      return { crop, source: sampleCanvas, srcX: 0, srcY: 0, srcW: sampleCanvas.width, srcH: sampleCanvas.height };
+    } catch (_) {
+      return null;
+    }
+  }
 
-HOˆ]XÚ
-YJKL
-NÈJNÂˆØİ[Y[˜Y]™[\İ[™\Š	ØÛXÚÉËHOˆÂˆYˆ
-\Ù][™ÜÔ[™[Ù][™ÜÔ[™[šY[ŠH™]\›ÂˆYˆ
-Ù][™ÜÔ[™[˜ÛÛZ[œÊK\™Ù]
-HÙ][™ÜĞ]ÛË˜ÛÛZ[œÊK\™Ù]
-JH™]\›ÂˆÙ][™ÜÔ[™[šY[ˆHYNÂˆKYJNÂˆØİ[Y[˜Y]™[\İ[™\Š	İš\ÚXš[]XÚ[™ÙIË
+  function drawEdgeProjector(ctx, canvas, distanceCssPx, far = false, sampled = null) {
+    if (!ctx || !canvas || !video || !geometry || !video.videoWidth || !video.videoHeight) return;
+    const vw = Math.max(1, window.innerWidth);
+    const vh = Math.max(1, window.innerHeight);
+    const sx = canvas.width / vw;
+    const sy = canvas.height / vh;
+    const raw = getAmbientSourceCrop();
+    const crop = sampled?.crop || raw.crop;
+    const source = sampled?.source || video;
+    const srcX = sampled?.srcX ?? raw.srcX;
+    const srcY = sampled?.srcY ?? raw.srcY;
+    const srcW = sampled?.srcW ?? raw.srcW;
+    const srcH = sampled?.srcH ?? raw.srcH;
+    const r = getAmbientContentRect(crop);
 
-HOˆÂˆYˆ
-YØİ[Y[šY[ŠHÂˆ]XÚ
-YJNÂˆ˜]Ê\™›Ü›X[˜ÙK››İÊ
-H
-ÈL
-NÂˆBˆJNÂ‚ˆÙ][\˜[
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.save();
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = settings.performanceMode ? 'medium' : 'high';
 
+    const edgeRatio = clamp((Number(settings.edgeSize) || 12) / 100, 0.02, 0.32);
+    const srcBandX = Math.max(2, srcW * edgeRatio);
+    const srcBandY = Math.max(2, srcH * edgeRatio);
+    const displayBandX = Math.max(8, r.w * edgeRatio);
+    const displayBandY = Math.max(8, r.h * edgeRatio);
+    // Original v1.0 used 9 + 12 layers (168 video drawImage calls per ambient frame).
+    // Performance mode uses fewer projections and lets CSS blur interpolate the gaps.
+    const layers = settings.performanceMode ? (far ? 5 : 4) : (far ? 12 : 9);
+    const alphaScale = far ? 0.20 : 0.27;
 
-HOˆÂˆYˆ
-ØØ][Û‹š™YˆOOH\İ\›
-HÂˆ\İ\›HØØ][Û‹š™YÂˆ]XÚ
-YJNÂˆH[ÙHÂˆ]XÚ
-˜[ÙJNÂˆBˆKMŒ
-NÂˆB‚ˆÚ›ÛYKœİÜ˜YÙK›ÛÚ[™ÙY˜Y\İ[™\Š
-Ú[™Ù\Ë\™XJHOˆÂˆYˆ
-\™XHOOH	ÜŞ[˜ÉÊH™]\›Âˆ›Üˆ
-ÛÛœİÚÙ^KÚ[™ÙWHÙˆØš™Xİ™[šY\ÊÚ[™Ù\ÊJHÙ][™ÜÖÚÙ^WHHÚ[™ÙK›™]Õ˜[YNÂˆ\Tİ[\Ê
-NÂˆ\]SX\ÚÜÊ
-NÂˆYˆ
-Ú[™Ù\Ëœ™[[İ™RÜš^›Û[˜\œÈÚ[™Ù\Ëœ™[[İ™U™\XØ[˜\œÈÚ[™Ù\Ë™]XİÛÛÜ™Y˜\œÈˆÚ[™Ù\Ë˜˜\‘]Xİ[Û”Ù[œÚ]]š]HÚ[™Ù\Ë˜˜\‘œ˜[Y\Ğ]™\˜YÙHÚ[™Ù\Ë˜˜\‘]Xİ[Û“Ù™œÙ]ˆÚ[™Ù\Ë›X[X[Üš^›Û[Û\Ú[™Ù\Ë›X[X[™\XØ[Û\Ú[™Ù\Ë™š[šY[ÕĞÜ›Ü
-HÂˆYˆ
-Ú[™Ù\Ëœ™[[İ™RÜš^›Û[˜\œÈÚ[™Ù\Ëœ™[[İ™U™\XØ[˜\œÈÚ[™Ù\Ë™]XİÛÛÜ™Y˜\œÈˆÚ[™Ù\Ë˜˜\‘]Xİ[Û”Ù[œÚ]]š]HÚ[™Ù\Ë˜˜\‘œ˜[Y\Ğ]™\˜YÙJHÂˆ™\Ù]˜\‘]Xİ[ÛŠ
-NÂˆ]Xİ˜\œÊ\™›Ü›X[˜ÙK››İÊ
-KYJNÂˆH[ÙHÂˆ\]P˜\”İ]\Ê
-NÂˆ\UšY[Ñš[
+    const draw = (sX, sY, sW, sH, dX, dY, dW, dH, alpha) => {
+      ctx.globalAlpha = clamp(alpha, 0, 1);
+      try {
+        ctx.drawImage(source, sX, sY, sW, sH,
+          dX * sx, dY * sy, dW * sx, dH * sy);
+      } catch (_) {}
+    };
 
-NÂˆBˆBˆ˜]Ê\™›Ü›X[˜ÙK››İÊ
-H
-ÈL
-NÂˆYˆ
-Ú[™Ù\Ë™[˜X›YÚ[™Ù\Ë™œÈÚ[™Ù\ËšY]Ó[ÙHÚ[™Ù\Ëœ\™›Ü›X[˜ÙS[ÙHÚ[™Ù\Ëœ™[™\”]X[]JHİ\œ˜[YSÛÜ
+    for (let i = layers; i >= 1; i--) {
+      const t = i / layers;
+      const dist = distanceCssPx * t;
+      const alpha = fadeAlphaAt(t) * alphaScale;
+      const sideGrow = dist * 0.42;
 
-NÂˆYˆ
-Ù][™ÜÔ[™[Ëš\ĞÛÛ›™XİY
-HÂˆÙ][™ÜÔ[™[œ]Y\TÙ[XİÜ[
-	ÖÙ]KZÙ^WIÊK™›Ü‘XXÚ
-ÛÛ›ÛOˆÂˆÛÛœİÙ^HHÛÛ›Û™]\Ù]šÙ^NÂˆYˆ
-JÙ^H[ˆÙ][™ÜÊJH™]\›ÂˆYˆ
-ÛÛ›ÛOOHØİ[Y[˜Xİ]™Q[[Y[
-H™]\›ÂˆYˆ
-ÛÛ›Û\HOOH	ØÚXÚØ›Ş	ÊHÛÛ›Û˜ÚXÚÙYHH\Ù][™ÜÖÚÙ^WNÂˆ[ÙHÛÛ›Û˜[YHHÙ][™ÜÖÚÙ^WNÂˆÛÛœİ›İÈHÛÛ›Û˜ÛÜÙ\İ
-	Ë˜˜[K[Y[K\›İÉÊNÂˆÛÛœİ˜[YHH›İÏËœ]Y\TÙ[XİÜŠ	Ë˜˜[K[Y[K]˜[YIÊNÂˆYˆ
-˜[YH	‰ˆÛÛ›Û\HOOH	Ü˜[™ÙIÊHÂˆÛÛœİİY™š^HÙ^HOOH	ÙœÉÈÈ	ÈœÉÈˆÙ^HOOH	Ù˜YQ\˜][Û‰ÈÈ	È\ÉÈˆÙ^HOOH	Ø˜\‘œ˜[Y\Ğ]™\˜YÙIÈÈ	È9n)ÉÈˆ	ÉIÎÂˆ˜[YK^ÛÛ[H	ÓX]œ›İ[™
-[X™\ŠÛÛ›Û˜[YJH
-ˆL
-HÈLIÜİY™š^XÂˆBˆJNÂˆBˆJNÂ‚ˆÙ][\˜[
+      draw(srcX, srcY, srcW, srcBandY,
+        r.x - sideGrow, r.y - dist, r.w + sideGrow * 2, dist + displayBandY, alpha);
+      draw(srcX, srcY + srcH - srcBandY, srcW, srcBandY,
+        r.x - sideGrow, r.y + r.h - displayBandY, r.w + sideGrow * 2, dist + displayBandY, alpha);
+      draw(srcX, srcY, srcBandX, srcH,
+        r.x - dist, r.y - sideGrow, dist + displayBandX, r.h + sideGrow * 2, alpha);
+      draw(srcX + srcW - srcBandX, srcY, srcBandX, srcH,
+        r.x + r.w - displayBandX, r.y - sideGrow, dist + displayBandX, r.h + sideGrow * 2, alpha);
 
+      // In performance mode corners only need two anchor projections per layer stack.
+      const drawCorners = !settings.performanceMode || i === layers || i === 1;
+      if (drawCorners) {
+        const cornerW = Math.max(srcBandX, srcW * 0.10);
+        const cornerH = Math.max(srcBandY, srcH * 0.10);
+        const cornerD = dist * 0.74;
+        const ca = alpha * 0.72;
+        draw(srcX, srcY, cornerW, cornerH,
+          r.x - cornerD, r.y - cornerD, cornerD + displayBandX * 1.5, cornerD + displayBandY * 1.5, ca);
+        draw(srcX + srcW - cornerW, srcY, cornerW, cornerH,
+          r.x + r.w - displayBandX * 1.5, r.y - cornerD, cornerD + displayBandX * 1.5, cornerD + displayBandY * 1.5, ca);
+        draw(srcX, srcY + srcH - cornerH, cornerW, cornerH,
+          r.x - cornerD, r.y + r.h - displayBandY * 1.5, cornerD + displayBandX * 1.5, cornerD + displayBandY * 1.5, ca);
+        draw(srcX + srcW - cornerW, srcY + srcH - cornerH, cornerW, cornerH,
+          r.x + r.w - displayBandX * 1.5, r.y + r.h - displayBandY * 1.5, cornerD + displayBandX * 1.5, cornerD + displayBandY * 1.5, ca);
+      }
+    }
+    ctx.restore();
+  }
 
-HOˆÈYˆ
-^Y\ŠH\]SZ[šT^Y\“^Y\Š
-NÈKÌ
-NÂ‚ˆØYÙ][™ÜÊ
-K[Š
+  function draw(ts = performance.now()) {
+    if (!active() || !video || !root || document.hidden) return;
+    let fps = clamp(Number(settings.fps) || 30, 5, 60);
+    // Ambient light does not need to refresh as fast as the video. Keeping it below the
+    // video's cadence gives the decoder/compositor headroom and prevents playback drops.
+    if (settings.performanceMode) fps = Math.min(fps, 24);
+    const minInterval = 1000 / fps;
+    if (ts - lastDraw < minInterval) return;
+    lastDraw = ts;
+    frameSerial++;
 
-HOˆÂˆ]XÚ
-YJNÂˆØ]ÚYÙJ
-NÂˆJNÂ‚ˆÚ[™İË˜Y]™[\İ[™\Š	Ø™Y›Ü™][›ØY	Ë
+    resizeCanvasToViewport(nearCanvas, nearCtx, false);
+    resizeCanvasToViewport(farCanvas, farCtx, true);
+    updateGeometry(false);
+    detectBars(ts);
+    const a = derivedAmbient();
+    if (settings.alphaProjector) {
+      const sampled = updateAmbientSample();
+      // The far field is heavily blurred and changes slowly. Updating it every second
+      // ambient frame almost halves its render cost without visible judder.
+      if (!settings.performanceMode || frameSerial % 2 === 0) {
+        drawEdgeProjector(farCtx, farCanvas, a.farDistance, true, sampled);
+      }
+      drawEdgeProjector(nearCtx, nearCanvas, a.nearDistance, false, sampled);
+    } else {
+      if (!settings.performanceMode || frameSerial % 2 === 0) {
+        drawLegacyFrameTo(farCtx, farCanvas, a.farSpread);
+      }
+      drawLegacyFrameTo(nearCtx, nearCanvas, a.nearSpread);
+    }
+  }
 
-HOˆÂˆ\ÜÜÙYHYNÂˆİÜœ˜[YSÛÜ
+  function stopFrameLoop() {
+    if (video && rvfcId && video.cancelVideoFrameCallback) {
+      try { video.cancelVideoFrameCallback(rvfcId); } catch (_) {}
+    }
+    rvfcId = 0;
+    if (rafId) cancelAnimationFrame(rafId);
+    rafId = 0;
+  }
 
-NÂˆ™\Ú^™SØœÙ\™\Ë™\ØÛÛ›™Xİ
+  function startFrameLoop() {
+    stopFrameLoop();
+    if (!video || !active()) return;
 
-NÂˆ]]][Û“ØœÙ\™\Ë™\ØÛÛ›™Xİ
+    if (video.requestVideoFrameCallback) {
+      const onFrame = now => {
+        if (disposed || !video || !active()) return;
+        draw(now);
+        rvfcId = video.requestVideoFrameCallback(onFrame);
+      };
+      rvfcId = video.requestVideoFrameCallback(onFrame);
+      return;
+    }
 
-NÂˆØİ[Y[™Øİ[Y[[[Y[œ™[[İ™P]šX]J	Ù]KXš[KX[XšY[Y\šÉÊNÂˆØİ[Y[™Øİ[Y[[[Y[œ™[[İ™P]šX]J	Ù]KXš[KX[XšY[ZXY\‹]Ü	ÊNÂˆØİ[Y[™Øİ[Y[[[Y[œ™[[İ™P]šX]J	Ù]KXš[KX[XšY[]^XY\	ÊNÂˆØİ[Y[™Øİ[Y[[[Y[œ™[[İ™P]šX]J	Ù]KXš[KX[XšY[YK\Ù\\˜]Y	ÊNÂˆØİ[Y[™Øİ[Y[[[Y[œ™[[İ™P]šX]J	Ù]KXš[KX[XšY[[›ËYYÙK\ÚYİÉÊNÂˆØİ[Y[™Øİ[Y[[[Y[œ™[[İ™P]šX]J	Ù]KXš[KX[XšY[X[K\›Ú™XİÜ‰ÊNÂˆÉËKX˜[KZXY\‹X™ËX[IË	ËKX˜[KZXY\‹X›\‰Ë	ËKX˜[KZXY\‹\Ø]	Ë	ËKX˜[KYKX™ËX[IË	ËKX˜[KYKX›\‰Ë	ËKX˜[KYK\Ø]	Ë	ËKX˜[K\^Y\‹X˜XÚËX[I×K™›Ü‘XXÚ
-˜[YHOˆØİ[Y[™Øİ[Y[[[Y[œİ[Kœ™[[İ™T›Ü\J˜[YJJNÂˆYˆ
-šY[ÊHÈšY[Ëœ™[[İ™P]šX]J	Ù]KX˜[KYš[]šY[ÉÊNÈšY[Ëœİ[Kœ™[[İ™T›Ü\J	ËKX˜[KYš[\ØØ[IÊNÈBˆJNÂŸJJ
-NÂ
+    const loop = now => {
+      if (disposed || !video || !active()) return;
+      draw(now);
+      rafId = requestAnimationFrame(loop);
+    };
+    rafId = requestAnimationFrame(loop);
+  }
+
+  function addVideoListeners(v) {
+    ['loadeddata', 'seeked', 'play', 'pause', 'resize', 'timeupdate'].forEach(type => {
+      v.addEventListener(type, () => {
+        geometryDirty = true;
+        updateGeometry(true);
+        if (type === 'loadeddata' || type === 'seeked' || type === 'resize') detectBars(performance.now(), true);
+        draw(performance.now() + 1000);
+      }, { passive: true });
+    });
+  }
+
+  function sliderRow(label, key, min, max, step, suffix = '%') {
+    const row = document.createElement('label');
+    row.className = 'bali-menu-row bali-menu-slider-row';
+    row.innerHTML = `<span class="bali-menu-label">${label}</span><input type="range" min="${min}" max="${max}" step="${step}" data-key="${key}"><span class="bali-menu-value"></span>`;
+    const input = row.querySelector('input');
+    const value = row.querySelector('.bali-menu-value');
+    input.value = settings[key];
+    const sync = () => {
+      const n = Number(input.value);
+      value.textContent = `${Math.round(n * 10) / 10}${suffix}`;
+    };
+    sync();
+    input.addEventListener('input', () => {
+      const next = Number(input.value);
+      settings[key] = next;
+      sync();
+      chrome.storage.sync.set({ [key]: next });
+    });
+    return row;
+  }
+
+  function selectRow(label, key, options) {
+    const row = document.createElement('label');
+    row.className = 'bali-menu-row';
+    const select = document.createElement('select');
+    for (const [value, text] of options) {
+      const option = document.createElement('option');
+      option.value = value;
+      option.textContent = text;
+      select.append(option);
+    }
+    select.dataset.key = key;
+    select.value = String(settings[key]);
+    select.addEventListener('change', () => {
+      settings[key] = select.value;
+      chrome.storage.sync.set({ [key]: select.value });
+      applyStyles();
+      startFrameLoop();
+    });
+    const labelSpan = document.createElement('span');
+    labelSpan.className = 'bali-menu-label';
+    labelSpan.textContent = label;
+    row.append(labelSpan, select);
+    return row;
+  }
+
+  function toggleRow(label, key) {
+    const row = document.createElement('label');
+    row.className = 'bali-menu-row bali-menu-toggle-row';
+    const labelSpan = document.createElement('span');
+    labelSpan.className = 'bali-menu-label';
+    labelSpan.textContent = label;
+    const input = document.createElement('input');
+    input.type = 'checkbox';
+    input.dataset.key = key;
+    input.checked = !!settings[key];
+    input.addEventListener('change', () => {
+      settings[key] = input.checked;
+      chrome.storage.sync.set({ [key]: input.checked });
+      applyStyles();
+    });
+    row.append(labelSpan, input);
+    return row;
+  }
+
+  function section(title, open = false) {
+    const details = document.createElement('details');
+    details.className = 'bali-menu-section';
+    details.open = open;
+    const summary = document.createElement('summary');
+    summary.textContent = title;
+    const body = document.createElement('div');
+    body.className = 'bali-menu-section-body';
+    details.append(summary, body);
+    return { details, body };
+  }
+
+  function updateMiniPlayerLayer() {
+    if (!player) return;
+    try {
+      const rect = player.getBoundingClientRect();
+      const cs = getComputedStyle(player);
+      const classText = String(player.className || '');
+      const attrs = `${player.getAttribute('data-screen') || ''} ${player.getAttribute('data-mode') || ''}`;
+      const namedMini = /mini|float|small/i.test(`${classText} ${attrs}`);
+      const fixedMini = (cs.position === 'fixed' || cs.position === 'sticky') &&
+        rect.width > 180 && rect.height > 100 &&
+        rect.width < innerWidth * 0.78 && rect.height < innerHeight * 0.82;
+      player.toggleAttribute('data-bali-mini-player', namedMini || fixedMini);
+    } catch (_) {}
+  }
+
+  async function applyPreset(name) {
+    const preset = PRESETS[name];
+    if (!preset) return;
+    Object.assign(settings, preset);
+    await chrome.storage.sync.set(preset);
+    applyStyles();
+    updateMiniPlayerLayer();
+    updateMasks();
+    draw(performance.now() + 1000);
+    startFrameLoop();
+    if (settingsPanel?.isConnected) {
+      settingsPanel.querySelectorAll('[data-key]').forEach(control => {
+        const key = control.dataset.key;
+        if (!(key in settings)) return;
+        if (control.type === 'checkbox') control.checked = !!settings[key];
+        else control.value = settings[key];
+        const value = control.closest('.bali-menu-row')?.querySelector('.bali-menu-value');
+        if (value && control.type === 'range') {
+          const suffix = key === 'fps' ? ' fps' : key === 'fadeDuration' ? ' ms' : key === 'barFramesAverage' ? ' å¸§' : '%';
+          value.textContent = `${Math.round(Number(control.value) * 10) / 10}${suffix}`;
+        }
+      });
+    }
+  }
+
+  function presetBar() {
+    const wrap = document.createElement('div');
+    wrap.className = 'bali-menu-presets';
+    const title = document.createElement('div');
+    title.className = 'bali-menu-preset-title';
+    title.textContent = 'å¿«é€Ÿé¢„è®¾';
+    const buttons = document.createElement('div');
+    buttons.className = 'bali-menu-preset-buttons';
+    [['light','è½»åº¦'],['standard','æ ‡å‡†ï¼ˆYTï¼‰'],['heavy','é‡åº¦']].forEach(([key,label]) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.textContent = label;
+      btn.addEventListener('click', e => { e.stopPropagation(); applyPreset(key); });
+      buttons.append(btn);
+    });
+    wrap.append(title, buttons);
+    return wrap;
+  }
+
+  function createSettingsPanel() {
+    if (!player || settingsPanel?.isConnected) return;
+
+    settingsPanel = document.createElement('div');
+    settingsPanel.className = 'bali-player-settings-panel';
+    settingsPanel.hidden = true;
+
+    const top = document.createElement('div');
+    top.className = 'bali-menu-top';
+    top.innerHTML = `<strong>Bilibili ç¯å¢ƒå…‰</strong><button type="button" class="bali-menu-close" aria-label="å…³é—­">Ã—</button>`;
+    top.querySelector('.bali-menu-close').addEventListener('click', () => { settingsPanel.hidden = true; });
+    settingsPanel.append(top);
+
+    const general = section('è®¾ç½®');
+    general.body.append(toggleRow('å¯ç”¨ç¯å¢ƒå…‰', 'enabled'));
+    settingsPanel.append(general.details);
+
+    const quality = section('è´¨é‡');
+    quality.body.append(
+      sliderRow('æ¸²æŸ“åˆ†è¾¨ç‡', 'renderQuality', 16, 100, 1, '%'),
+      sliderRow('å¸§ç‡ä¸Šé™', 'fps', 10, 60, 5, ' fps')
+    );
+    settingsPanel.append(quality.details);
+
+    const header = section('é¡µé¢é¡¶éƒ¨');
+    header.body.append(
+      toggleRow('é¡¶éƒ¨æ å§‹ç»ˆç½®é¡¶', 'headerOnTop'),
+      sliderRow('é¡¶éƒ¨æ ç¯å¢ƒå…‰å½±å“', 'headerAmbient', 0, 100, 1, '%')
+    );
+    settingsPanel.append(header.details);
+
+    const content = section('é¡µé¢å†…å®¹');
+    content.body.append(
+      toggleRow('çº¯é»‘èƒŒæ™¯', 'trueBlack'),
+      toggleRow('æ·±è‰²é¡µé¢æ–‡å­—é€‚é…', 'darkTextAdaptation')
+    );
+    settingsPanel.append(content.details);
+
+    const videoSection = section('è§†é¢‘');
+    const sample = document.createElement('div');
+    sample.className = 'bali-menu-static-row';
+    sample.innerHTML = '<span>é‡‡æ ·æ¥æº</span><b>ä»…è§†é¢‘ç”»é¢</b>';
+    videoSection.body.append(
+      sample,
+      toggleRow('å¼¹å¹•è¾“å…¥æ ç‹¬ç«‹åˆ†å±‚', 'separateDmBar'),
+      sliderRow('å¼¹å¹•æ ç¯å¢ƒå…‰å½±å“', 'dmAmbient', 0, 100, 1, '%'),
+      toggleRow('ç§»é™¤æ’­æ”¾å™¨è¾¹ç¼˜é»‘æ™•', 'suppressPlayerEdgeShadow'),
+      sliderRow('è¾¹ç¼˜é»‘æ™•æŠ‘åˆ¶', 'edgeShadowSuppression', 0, 100, 1, '%')
+    );
+    settingsPanel.append(videoSection.details);
+
+    const bars = section('ç§»é™¤é»‘è¾¹ä¸å½©è‰²è¾¹');
+    bars.body.append(
+      toggleRow('è‡ªåŠ¨ç§»é™¤ä¸Šä¸‹é»‘è¾¹', 'removeHorizontalBars'),
+      toggleRow('è‡ªåŠ¨ç§»é™¤å·¦å³é»‘è¾¹', 'removeVerticalBars'),
+      toggleRow('æ£€æµ‹å½©è‰²è¾¹', 'detectColoredBars'),
+      sliderRow('æ£€æµ‹çµæ•åº¦', 'barDetectionSensitivity', 10, 90, 1, '%'),
+      sliderRow('å¹³å‡å¸§æ•°', 'barFramesAverage', 1, 30, 1, ' å¸§'),
+      sliderRow('æ£€æµ‹åç§»', 'barDetectionOffset', -5, 5, 0.1, '%'),
+      sliderRow('æ‰‹åŠ¨ä¸Šä¸‹è£åˆ‡', 'manualHorizontalClip', 0, 40, 0.1, '%'),
+      sliderRow('æ‰‹åŠ¨å·¦å³è£åˆ‡', 'manualVerticalClip', 0, 40, 0.1, '%'),
+      toggleRow('å¡«å……è§†é¢‘åˆ°è£åˆ‡åŒºåŸŸ', 'fillVideoToCrop')
+    );
+    const statusRow = document.createElement('div');
+    statusRow.className = 'bali-menu-static-row';
+    statusRow.innerHTML = '<span>å½“å‰æ£€æµ‹</span><b></b>';
+    barStatusElem = statusRow.querySelector('b');
+    bars.body.append(statusRow);
+    updateBarStatus();
+    settingsPanel.append(bars.details);
+
+    const filters = section('æ»¤é•œ');
+    filters.body.append(
+      sliderRow('äº®åº¦', 'brightness', 50, 150, 1, '%'),
+      sliderRow('è‰²å½©', 'vibrance', 50, 200, 1, '%'),
+      sliderRow('é¥±å’Œåº¦', 'saturation', 50, 200, 1, '%')
+    );
+    settingsPanel.append(filters.details);
+
+    const ambient = section('ç¯å¢ƒå…‰', true);
+    ambient.body.append(
+      toggleRow('è¾¹ç¼˜æŠ•å½±å™¨', 'alphaProjector'),
+      sliderRow('æ¨¡ç³Š', 'blur', 0, 100, 0.1, '%'),
+      sliderRow('æ‰©æ•£èŒƒå›´', 'spread', 0, 100, 0.1, '%'),
+      sliderRow('è¾¹ç¼˜é‡‡æ ·å®½åº¦', 'edgeSize', 2, 32, 0.1, '%'),
+      sliderRow('æ‰©æ•£è¡°å‡èµ·ç‚¹', 'spreadFadeStart', 0, 60, 0.1, '%'),
+      sliderRow('æ‰©æ•£è¡°å‡æ›²çº¿', 'spreadFadeCurve', 1, 100, 1, '%'),
+      sliderRow('æ·¡å…¥æ—¶é—´', 'fadeDuration', 0, 1500, 50, ' ms')
+    );
+    const viewHeading = document.createElement('div');
+    viewHeading.className = 'bali-menu-subheading';
+    viewHeading.textContent = 'è§†å›¾æ¨¡å¼';
+    ambient.body.append(viewHeading);
+    ambient.body.append(selectRow('å¯ç”¨å¸ƒå±€', 'viewMode', [
+      ['all', 'å…¨éƒ¨'],
+      ['normal', 'æ™®é€šæ¨¡å¼'],
+      ['fullscreen', 'å…¨å± / ç½‘é¡µå…¨å±']
+    ]));
+    settingsPanel.append(ambient.details);
+    settingsPanel.append(presetBar());
+
+    player.append(settingsPanel);
+  }
+
+  function ensurePlayerSettingsButton() {
+    if (!player?.isConnected) return;
+    if (settingsButton?.isConnected && settingsPanel?.isConnected) return;
+
+    settingsButton?.remove();
+    settingsPanel?.remove();
+    settingsButton = null;
+    settingsPanel = null;
+
+    const nativeSettings = player.querySelector('.bpx-player-ctrl-setting');
+    const controls = nativeSettings?.parentElement || player.querySelector('.bpx-player-control-bottom-right');
+    if (!controls) return;
+
+    settingsButton = document.createElement('div');
+    settingsButton.className = 'bpx-player-ctrl-btn bali-ambient-player-btn';
+    settingsButton.title = 'ç¯å¢ƒå…‰è®¾ç½®';
+    settingsButton.setAttribute('role', 'button');
+    settingsButton.setAttribute('tabindex', '0');
+    settingsButton.innerHTML = '<span>AL</span>';
+
+    if (nativeSettings && nativeSettings.parentElement === controls) controls.insertBefore(settingsButton, nativeSettings);
+    else controls.append(settingsButton);
+
+    createSettingsPanel();
+
+    const toggle = e => {
+      e?.stopPropagation();
+      if (!settingsPanel) return;
+      settingsPanel.hidden = !settingsPanel.hidden;
+    };
+    settingsButton.addEventListener('click', toggle);
+    settingsButton.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') toggle(e);
+    });
+  }
+
+  function attach(force = false) {
+    if (!isVideoPage()) {
+      if (root) root.style.display = 'none';
+      applyPageTheme();
+      return;
+    }
+
+    const nextVideo = findVideo();
+    if (!nextVideo) {
+      ensureRoot();
+      applyStyles();
+      return;
+    }
+
+    const changed = nextVideo !== video;
+    if (changed || force) {
+      stopFrameLoop();
+      video = nextVideo;
+      player = findPlayer(video);
+      resetBarDetection();
+      addVideoListeners(video);
+      settingsButton?.remove();
+      settingsPanel?.remove();
+      settingsButton = null;
+      settingsPanel = null;
+    }
+
+    ensureRoot();
+    applyStyles();
+    geometryDirty = true;
+    updateGeometry(true);
+    ensurePlayerSettingsButton();
+    draw(performance.now() + 1000);
+    if (changed || force) startFrameLoop();
+
+    resizeObserver?.disconnect();
+    resizeObserver = new ResizeObserver(() => {
+      geometryDirty = true;
+      updateGeometry(true);
+      draw(performance.now() + 1000);
+    });
+    resizeObserver.observe(video);
+    if (player) resizeObserver.observe(player);
+  }
+
+  async function loadSettings() {
+    try {
+      const saved = await chrome.storage.sync.get(DEFAULTS);
+      settings = { ...DEFAULTS, ...saved };
+    } catch (_) {
+      settings = { ...DEFAULTS };
+    }
+  }
+
+  function watchPage() {
+    mutationObserver?.disconnect();
+    mutationObserver = new MutationObserver(() => {
+      if (location.href !== lastUrl) {
+        lastUrl = location.href;
+        setTimeout(() => attach(true), 180);
+      } else if (!video?.isConnected || !root?.isConnected || !settingsButton?.isConnected) {
+        attach(true);
+      }
+    });
+    mutationObserver.observe(document.documentElement, { childList: true, subtree: true });
+
+    window.addEventListener('resize', () => {
+      geometryDirty = true;
+      updateGeometry(true);
+      draw(performance.now() + 1000);
+    }, { passive: true });
+    window.addEventListener('scroll', () => { geometryDirty = true; }, { passive: true });
+    document.addEventListener('fullscreenchange', () => { geometryDirty = true; setTimeout(() => attach(true), 100); });
+    document.addEventListener('click', e => {
+      if (!settingsPanel || settingsPanel.hidden) return;
+      if (settingsPanel.contains(e.target) || settingsButton?.contains(e.target)) return;
+      settingsPanel.hidden = true;
+    }, true);
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden) {
+        attach(true);
+        draw(performance.now() + 1000);
+      }
+    });
+
+    setInterval(() => {
+      if (location.href !== lastUrl) {
+        lastUrl = location.href;
+        attach(true);
+      } else {
+        attach(false);
+      }
+    }, 1600);
+  }
+
+  chrome.storage.onChanged.addListener((changes, area) => {
+    if (area !== 'sync') return;
+    for (const [key, change] of Object.entries(changes)) settings[key] = change.newValue;
+    applyStyles();
+    updateMasks();
+    if (changes.removeHorizontalBars || changes.removeVerticalBars || changes.detectColoredBars ||
+        changes.barDetectionSensitivity || changes.barFramesAverage || changes.barDetectionOffset ||
+        changes.manualHorizontalClip || changes.manualVerticalClip || changes.fillVideoToCrop) {
+      if (changes.removeHorizontalBars || changes.removeVerticalBars || changes.detectColoredBars ||
+          changes.barDetectionSensitivity || changes.barFramesAverage) {
+        resetBarDetection();
+        detectBars(performance.now(), true);
+      } else {
+        updateBarStatus();
+        applyVideoFill();
+      }
+    }
+    draw(performance.now() + 1000);
+    if (changes.enabled || changes.fps || changes.viewMode || changes.performanceMode || changes.renderQuality) startFrameLoop();
+    if (settingsPanel?.isConnected) {
+      settingsPanel.querySelectorAll('[data-key]').forEach(control => {
+        const key = control.dataset.key;
+        if (!(key in settings)) return;
+        if (control === document.activeElement) return;
+        if (control.type === 'checkbox') control.checked = !!settings[key];
+        else control.value = settings[key];
+        const row = control.closest('.bali-menu-row');
+        const value = row?.querySelector('.bali-menu-value');
+        if (value && control.type === 'range') {
+          const suffix = key === 'fps' ? ' fps' : key === 'fadeDuration' ? ' ms' : key === 'barFramesAverage' ? ' å¸§' : '%';
+          value.textContent = `${Math.round(Number(control.value) * 10) / 10}${suffix}`;
+        }
+      });
+    }
+  });
+
+  setInterval(() => { if (player) updateMiniPlayerLayer(); }, 700);
+
+  loadSettings().then(() => {
+    attach(true);
+    watchPage();
+  });
+
+  window.addEventListener('beforeunload', () => {
+    disposed = true;
+    stopFrameLoop();
+    resizeObserver?.disconnect();
+    mutationObserver?.disconnect();
+    document.documentElement.removeAttribute('data-bili-ambient-dark');
+    document.documentElement.removeAttribute('data-bili-ambient-header-top');
+    document.documentElement.removeAttribute('data-bili-ambient-text-adapt');
+    document.documentElement.removeAttribute('data-bili-ambient-dm-separated');
+    document.documentElement.removeAttribute('data-bili-ambient-no-edge-shadow');
+    document.documentElement.removeAttribute('data-bili-ambient-alpha-projector');
+    ['--bali-header-bg-alpha','--bali-header-blur','--bali-header-sat','--bali-dm-bg-alpha','--bali-dm-blur','--bali-dm-sat','--bali-player-back-alpha'].forEach(name => document.documentElement.style.removeProperty(name));
+    if (video) { video.removeAttribute('data-bali-fill-video'); video.style.removeProperty('--bali-fill-scale'); }
+  });
+})();
