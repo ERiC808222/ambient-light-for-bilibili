@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bilibili Ambient Light</title>
+  <style>
+    :root { color-scheme: dark; }
+    * { box-sizing: border-box; }
+    body {
+      width: 360px; max-height: 580px; overflow:auto; margin:0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color:#fff; background:#1f2125;
+    }
+    .top { padding:12px 14px 10px; border-bottom:1px solid #42454b; }
+    .top strong { display:block; font-size:14px; }
+    .top span { color:#9ea3aa; font-size:11px; }
+    details { border-bottom:1px solid #45484e; }
+    summary { list-style:none; cursor:pointer; padding:10px 14px; font-size:13px; font-weight:650; background:#33363b; }
+    summary::-webkit-details-marker { display:none; }
+    summary::after { content:'›'; float:right; transform:rotate(90deg); color:#ccc; }
+    details[open] summary::after { transform:rotate(-90deg); }
+    .body { padding:6px 14px 11px; background:rgba(0,0,0,.09); }
+    .row { display:grid; grid-template-columns:115px 1fr 58px; gap:8px; align-items:center; min-height:35px; font-size:13px; }
+    .row.toggle { grid-template-columns:1fr auto; }
+    input[type="range"] { width:100%; accent-color:#bcbcbc; }
+    input[type="checkbox"] { width:17px; height:17px; }
+    output { text-align:right; color:#d7d9dc; font-size:12px; font-variant-numeric:tabular-nums; }
+    select { grid-column:2 / 4; width:100%; padding:5px 7px; border:1px solid #555b63; border-radius:6px; background:#202226; color:#fff; }
+    .static { display:flex; justify-content:space-between; min-height:35px; align-items:center; font-size:13px; }
+    .static b { color:#b8bdc5; font-size:12px; }
+    .subhead { margin:6px -14px 2px; padding:8px 14px 4px; border-top:1px solid #44484f; color:#adb3bb; font-size:12px; font-weight:650; }
+    .buttons { display:grid; grid-template-columns:1fr 1fr 1fr; gap:7px; padding:10px 14px 12px; }
+    button { border:1px solid #555b63; border-radius:7px; padding:7px; background:#2b2e33; color:#fff; cursor:pointer; }
+    button:hover { background:#393d44; }
+    .note { padding:0 14px 12px; color:#8f969f; font-size:11px; line-height:1.45; }
+  </style>
+</head>
+<body>
+  <div class="top"><strong>Bilibili 环境光 v1.1.1</strong><span>参考 YouTube Ambient Light 的环境光设置</span></div>
+
+  <details><summary>设置</summary><div class="body"><label class="row toggle"><span>启用环境光</span><input id="enabled" type="checkbox"></label></div></details>
+
+  <details><summary>质量</summary><div class="body">
+    <label class="row toggle"><span>性能优化（推荐）</span><input id="performanceMode" type="checkbox"></label>
+    <label class="row"><span>渲染分辨率</span><input id="renderQuality" type="range" min="16" max="100" step="1"><output id="renderQualityOut"></output></label>
+    <label class="row"><span>帧率上限</span><input id="fps" type="range" min="10" max="60" step="5"><output id="fpsOut"></output></label>
+  </div></details>
+
+  <details><summary>页面顶部</summary><div class="body"><label class="row toggle"><span>顶部栏始终置顶</span><input id="headerOnTop" type="checkbox"></label><label class="row"><span>顶部栏环境光影响</span><input id="headerAmbient" type="range" min="0" max="100" step="1"><output id="headerAmbientOut"></output></label></div></details>
+
+  <details><summary>页面内容</summary><div class="body">
+    <label class="row toggle"><span>纯黑背景</span><input id="trueBlack" type="checkbox"></label>
+    <label class="row toggle"><span>深色页面文字适配</span><input id="darkTextAdaptation" type="checkbox"></label>
+  </div></details>
+
+  <details><summary>视频</summary><div class="body">
+    <div class="static"><span>采样来源</span><b>仅视频画面</b></div>
+    <label class="row toggle"><span>弹幕输入栏独立分层</span><input id="separateDmBar" type="checkbox"></label>
+    <label class="row"><span>弹幕栏环境光影响</span><input id="dmAmbient" type="range" min="0" max="100" step="1"><output id="dmAmbientOut"></output></label>
+    <label class="row toggle"><span>移除播放器边缘黑晕</span><input id="suppressPlayerEdgeShadow" type="checkbox"></label>
+    <label class="row"><span>边缘黑晕抑制</span><input id="edgeShadowSuppression" type="range" min="0" max="100" step="1"><output id="edgeShadowSuppressionOut"></output></label>
+  </div></details>
+
+  <details><summary>移除黑边与彩色边</summary><div class="body">
+    <label class="row toggle"><span>自动移除上下黑边</span><input id="removeHorizontalBars" type="checkbox"></label>
+    <label class="row toggle"><span>自动移除左右黑边</span><input id="removeVerticalBars" type="checkbox"></label>
+    <label class="row toggle"><span>检测彩色边</span><input id="detectColoredBars" type="checkbox"></label>
+    <label class="row"><span>检测灵敏度</span><input id="barDetectionSensitivity" type="range" min="10" max="90" step="1"><output id="barDetectionSensitivityOut"></output></label>
+    <label class="row"><span>平均帧数</span><input id="barFramesAverage" type="range" min="1" max="30" step="1"><output id="barFramesAverageOut"></output></label>
+    <label class="row"><span>检测偏移</span><input id="barDetectionOffset" type="range" min="-5" max="5" step="0.1"><output id="barDetectionOffsetOut"></output></label>
+    <label class="row"><span>手动上下裁切</span><input id="manualHorizontalClip" type="range" min="0" max="40" step="0.1"><output id="manualHorizontalClipOut"></output></label>
+    <label class="row"><span>手动左右裁切</span><input id="manualVerticalClip" type="range" min="0" max="40" step="0.1"><output id="manualVerticalClipOut"></output></label>
+    <label class="row toggle"><span>填充视频到裁切区域</span><input id="fillVideoToCrop" type="checkbox"></label>
+  </div></details>
+
+  <details><summary>滤镜</summary><div class="body">
+    <label class="row"><span>亮度</span><input id="brightness" type="range" min="50" max="150" step="1"><output id="brightnessOut"></output></label>
+    <label class="row"><span>色彩</span><input id="vibrance" type="range" min="50" max="200" step="1"><output id="vibranceOut"></output></label>
+    <label class="row"><span>饱和度</span><input id="saturation" type="range" min="50" max="200" step="1"><output id="saturationOut"></output></label>
+  </div></details>
+
+  <details open><summary>环境光</summary><div class="body">
+    <label class="row toggle"><span>边缘投影器</span><input id="alphaProjector" type="checkbox"></label>
+    <label class="row"><span>模糊</span><input id="blur" type="range" min="0" max="100" step="0.1"><output id="blurOut"></output></label>
+    <label class="row"><span>扩散范围</span><input id="spread" type="range" min="0" max="100" step="0.1"><output id="spreadOut"></output></label>
+    <label class="row"><span>边缘采样宽度</span><input id="edgeSize" type="range" min="2" max="32" step="0.1"><output id="edgeSizeOut"></output></label>
+    <label class="row"><span>扩散衰减起点</span><input id="spreadFadeStart" type="range" min="0" max="60" step="0.1"><output id="spreadFadeStartOut"></output></label>
+    <label class="row"><span>扩散衰减曲线</span><input id="spreadFadeCurve" type="range" min="1" max="100" step="1"><output id="spreadFadeCurveOut"></output></label>
+    <label class="row"><span>淡入时间</span><input id="fadeDuration" type="range" min="0" max="1500" step="50"><output id="fadeDurationOut"></output></label>
+    <div class="subhead">视图模式</div>
+    <label class="row"><span>启用布局</span><select id="viewMode"><option value="all">全部</option><option value="normal">普通模式</option><option value="fullscreen">全屏 / 网页全屏</option></select></label>
+  </div></details>
+
+  <div class="buttons"><button data-preset="light">轻度</button><button data-preset="standard">标准（YT）</button><button data-preset="heavy">重度</button></div>
+  <div class="note">v1.1：保留性能优化，并加入顶部栏/弹幕栏玻璃环境光、边缘黑晕抑制滑块和三档快速预设。环境光最高 24fps、远场隔帧刷新、低分辨率视频采样、减少边缘投影层数，并避免每帧强制布局计算；视频本身仍按原帧率播放。</div>
+  <script src="popup.js"></script>
+</body>
+</html>
