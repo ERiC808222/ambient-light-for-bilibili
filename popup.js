@@ -1,11 +1,13 @@
 const DEFAULTS = {
   enabled: true,
-  blur: 73.1,
-  spread: 89.8,
+  blur: 55,
+  spread: 85,
   fadeDuration: 0,
-  brightness: 100,
-  saturation: 115,
-  vibrance: 115,
+  brightness: 80,
+  saturation: 70,
+  vibrance: 100,
+  ambientIntensity: 100,
+  blackCrush: true,
   fps: 30,
   renderQuality: 26,
   headerOnTop: true,
@@ -30,17 +32,18 @@ const DEFAULTS = {
   edgeShadowSuppression: 78,
   headerAmbient: 68,
   dmAmbient: 68,
-  performanceMode: true
+  performanceMode: true,
+  settingsRevision: 2
 };
 
 const PRESETS = {
-  light: { blur:54, spread:68, edgeSize:9, spreadFadeStart:20, spreadFadeCurve:46, brightness:95, saturation:108, vibrance:108, headerAmbient:38, dmAmbient:38, edgeShadowSuppression:55, fps:24, renderQuality:20, alphaProjector:true, performanceMode:true },
-  standard: { blur:73.1, spread:89.8, fadeDuration:0, viewMode:'all', trueBlack:true, enabled:true, edgeSize:12, spreadFadeStart:15, spreadFadeCurve:35, brightness:100, saturation:115, vibrance:115, headerAmbient:68, dmAmbient:68, edgeShadowSuppression:78, fps:30, renderQuality:24, alphaProjector:true, performanceMode:true },
-  heavy: { blur:86, spread:98, edgeSize:15, spreadFadeStart:9, spreadFadeCurve:26, brightness:108, saturation:138, vibrance:132, headerAmbient:88, dmAmbient:88, edgeShadowSuppression:94, fps:30, renderQuality:26, alphaProjector:true, performanceMode:true }
+  light: { blur:35, spread:70, ambientIntensity:70, edgeSize:9, spreadFadeStart:20, spreadFadeCurve:46, brightness:78, saturation:65, vibrance:95, blackCrush:true, headerAmbient:32, dmAmbient:32, edgeShadowSuppression:55, fps:24, renderQuality:20, alphaProjector:true, performanceMode:true },
+  standard: { blur:55, spread:85, ambientIntensity:100, fadeDuration:0, viewMode:'all', trueBlack:true, enabled:true, edgeSize:12, spreadFadeStart:15, spreadFadeCurve:35, brightness:80, saturation:70, vibrance:100, blackCrush:true, headerAmbient:58, dmAmbient:58, edgeShadowSuppression:78, fps:30, renderQuality:24, alphaProjector:true, performanceMode:true },
+  heavy: { blur:75, spread:95, ambientIntensity:120, edgeSize:15, spreadFadeStart:9, spreadFadeCurve:26, brightness:88, saturation:90, vibrance:108, blackCrush:true, headerAmbient:78, dmAmbient:78, edgeShadowSuppression:94, fps:30, renderQuality:26, alphaProjector:true, performanceMode:true }
 };
 
-const boolIds = ['enabled','headerOnTop','trueBlack','darkTextAdaptation','removeHorizontalBars','removeVerticalBars','detectColoredBars','fillVideoToCrop','alphaProjector','separateDmBar','suppressPlayerEdgeShadow','performanceMode'];
-const rangeIds = ['headerAmbient','dmAmbient','edgeShadowSuppression','renderQuality','fps','brightness','vibrance','saturation','blur','spread','edgeSize','spreadFadeStart','spreadFadeCurve','fadeDuration','barDetectionSensitivity','barFramesAverage','barDetectionOffset','manualHorizontalClip','manualVerticalClip'];
+const boolIds = ['enabled','headerOnTop','trueBlack','darkTextAdaptation','removeHorizontalBars','removeVerticalBars','detectColoredBars','fillVideoToCrop','alphaProjector','separateDmBar','suppressPlayerEdgeShadow','performanceMode','blackCrush'];
+const rangeIds = ['headerAmbient','dmAmbient','edgeShadowSuppression','renderQuality','fps','brightness','vibrance','saturation','ambientIntensity','blur','spread','edgeSize','spreadFadeStart','spreadFadeCurve','fadeDuration','barDetectionSensitivity','barFramesAverage','barDetectionOffset','manualHorizontalClip','manualVerticalClip'];
 const $ = id => document.getElementById(id);
 
 function suffix(id) {
