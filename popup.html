@@ -37,7 +37,7 @@
   </style>
 </head>
 <body>
-  <div class="top"><strong>Bilibili 环境光 v1.1.1</strong><span>参考 YouTube Ambient Light 的环境光设置</span></div>
+  <div class="top"><strong>Bilibili 环境光 v1.1.2</strong><span>参考 YouTube Ambient Light 的环境光设置</span></div>
 
   <details><summary>设置</summary><div class="body"><label class="row toggle"><span>启用环境光</span><input id="enabled" type="checkbox"></label></div></details>
 
@@ -77,13 +77,15 @@
   <details><summary>滤镜</summary><div class="body">
     <label class="row"><span>亮度</span><input id="brightness" type="range" min="50" max="150" step="1"><output id="brightnessOut"></output></label>
     <label class="row"><span>色彩</span><input id="vibrance" type="range" min="50" max="200" step="1"><output id="vibranceOut"></output></label>
-    <label class="row"><span>饱和度</span><input id="saturation" type="range" min="50" max="200" step="1"><output id="saturationOut"></output></label>
+    <label class="row"><span>饱和度</span><input id="saturation" type="range" min="40" max="160" step="1"><output id="saturationOut"></output></label>
+    <label class="row toggle"><span>暗部压制</span><input id="blackCrush" type="checkbox"></label>
   </div></details>
 
   <details open><summary>环境光</summary><div class="body">
     <label class="row toggle"><span>边缘投影器</span><input id="alphaProjector" type="checkbox"></label>
     <label class="row"><span>模糊</span><input id="blur" type="range" min="0" max="100" step="0.1"><output id="blurOut"></output></label>
     <label class="row"><span>扩散范围</span><input id="spread" type="range" min="0" max="100" step="0.1"><output id="spreadOut"></output></label>
+    <label class="row"><span>颜色强度</span><input id="ambientIntensity" type="range" min="0" max="140" step="1"><output id="ambientIntensityOut"></output></label>
     <label class="row"><span>边缘采样宽度</span><input id="edgeSize" type="range" min="2" max="32" step="0.1"><output id="edgeSizeOut"></output></label>
     <label class="row"><span>扩散衰减起点</span><input id="spreadFadeStart" type="range" min="0" max="60" step="0.1"><output id="spreadFadeStartOut"></output></label>
     <label class="row"><span>扩散衰减曲线</span><input id="spreadFadeCurve" type="range" min="1" max="100" step="1"><output id="spreadFadeCurveOut"></output></label>
@@ -92,8 +94,8 @@
     <label class="row"><span>启用布局</span><select id="viewMode"><option value="all">全部</option><option value="normal">普通模式</option><option value="fullscreen">全屏 / 网页全屏</option></select></label>
   </div></details>
 
-  <div class="buttons"><button data-preset="light">轻度</button><button data-preset="standard">标准（YT）</button><button data-preset="heavy">重度</button></div>
-  <div class="note">v1.1：保留性能优化，并加入顶部栏/弹幕栏玻璃环境光、边缘黑晕抑制滑块和三档快速预设。环境光最高 24fps、远场隔帧刷新、低分辨率视频采样、减少边缘投影层数，并避免每帧强制布局计算；视频本身仍按原帧率播放。</div>
+  <div class="buttons"><button data-preset="light">轻度</button><button data-preset="standard">标准</button><button data-preset="heavy">重度</button></div>
+  <div class="note">v1.1.2：降低默认模糊与高饱和溢出。标准预设为 Blur 55%、Spread 85%、颜色强度 100%、亮度 80%、饱和度 70%，并默认开启暗部压制；继续保留性能优化、黑边检测、玻璃环境光与小窗层级修复。</div>
   <script src="popup.js"></script>
 </body>
 </html>
