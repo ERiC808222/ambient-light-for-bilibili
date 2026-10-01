@@ -2,8 +2,8 @@
   "manifest_version": 3,
   "name": "Ambient Light for Bilibili",
   "short_name": "Bilibili Ambient",
-  "version": "1.1.1",
-  "description": "为 Bilibili 网页播放器添加动态环境光、黑边检测、页面玻璃效果与性能优化。",
+  "version": "1.1.2",
+  "description": "为 Bilibili 网页播放器添加动态环境光、黑边检测与玻璃效果；v1.1.2 降低默认模糊和高饱和溢出，并新增颜色强度与暗部压制。",
   "permissions": [
     "storage"
   ],
