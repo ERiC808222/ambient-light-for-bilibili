@@ -3,12 +3,14 @@
 
   const DEFAULTS = {
     enabled: true,
-    blur: 73.1,
-    spread: 89.8,
+    blur: 55,
+    spread: 85,
     fadeDuration: 0,
-    brightness: 100,
-    saturation: 115,
-    vibrance: 115,
+    brightness: 80,
+    saturation: 70,
+    vibrance: 100,
+    ambientIntensity: 100,
+    blackCrush: true,
     fps: 30,
     renderQuality: 26,
     headerOnTop: true,
@@ -33,26 +35,27 @@
     edgeShadowSuppression: 78,
     headerAmbient: 68,
     dmAmbient: 68,
-    performanceMode: true
+    performanceMode: true,
+    settingsRevision: 2
   };
 
   const PRESETS = {
     light: {
-      blur: 54, spread: 68, brightness: 95, saturation: 108, vibrance: 108,
+      blur: 35, spread: 70, brightness: 78, saturation: 65, vibrance: 95, ambientIntensity: 70, blackCrush: true,
       edgeSize: 9, spreadFadeStart: 20, spreadFadeCurve: 46,
-      headerAmbient: 38, dmAmbient: 38, edgeShadowSuppression: 55,
+      headerAmbient: 32, dmAmbient: 32, edgeShadowSuppression: 55,
       renderQuality: 20, fps: 24, performanceMode: true, alphaProjector: true
     },
     standard: {
-      blur: 73.1, spread: 89.8, fadeDuration: 0, brightness: 100, saturation: 115, vibrance: 115,
+      blur: 55, spread: 85, fadeDuration: 0, brightness: 80, saturation: 70, vibrance: 100, ambientIntensity: 100, blackCrush: true,
       edgeSize: 12, spreadFadeStart: 15, spreadFadeCurve: 35,
-      headerAmbient: 68, dmAmbient: 68, edgeShadowSuppression: 78,
+      headerAmbient: 58, dmAmbient: 58, edgeShadowSuppression: 78,
       renderQuality: 24, fps: 30, performanceMode: true, alphaProjector: true
     },
     heavy: {
-      blur: 86, spread: 98, brightness: 108, saturation: 138, vibrance: 132,
+      blur: 75, spread: 95, brightness: 88, saturation: 90, vibrance: 108, ambientIntensity: 120, blackCrush: true,
       edgeSize: 15, spreadFadeStart: 9, spreadFadeCurve: 26,
-      headerAmbient: 88, dmAmbient: 88, edgeShadowSuppression: 94,
+      headerAmbient: 78, dmAmbient: 78, edgeShadowSuppression: 94,
       renderQuality: 26, fps: 30, performanceMode: true, alphaProjector: true
     }
   };
@@ -268,18 +271,22 @@
     const sat = clamp((Number(settings.saturation) || 100) / 100, 0.2, 2.5);
     const vib = clamp((Number(settings.vibrance) || 100) / 100, 0.2, 2.5);
     const bri = clamp((Number(settings.brightness) || 100) / 100, 0.2, 2);
+    const intensity = clamp(Number(settings.ambientIntensity) || 100, 0, 140) / 100;
+    const opacityScale = Math.min(1, intensity);
+    const intensityBrightness = intensity > 1 ? 1 + (intensity - 1) * 0.35 : 1;
+    const contrast = settings.blackCrush ? 1.10 : 1;
     const fade = clamp(Number(settings.fadeDuration) || 0, 0, 1500);
 
-    nearCanvas.style.opacity = String(a.nearOpacity);
-    farCanvas.style.opacity = String(a.farOpacity);
+    nearCanvas.style.opacity = String(clamp(a.nearOpacity * opacityScale, 0, 1));
+    farCanvas.style.opacity = String(clamp(a.farOpacity * opacityScale, 0, 1));
     // Screen blending makes black source pixels contribute no "black glow".
     nearCanvas.style.mixBlendMode = settings.alphaProjector ? 'screen' : 'normal';
     farCanvas.style.mixBlendMode = settings.alphaProjector ? 'screen' : 'normal';
     nearCanvas.style.transition = `filter ${fade}ms ease, opacity ${fade}ms ease`;
     farCanvas.style.transition = `filter ${fade}ms ease, opacity ${fade}ms ease`;
 
-    nearCanvas.style.setProperty('filter', `blur(${a.nearBlur}px) saturate(${sat * vib}) brightness(${bri})`, 'important');
-    farCanvas.style.setProperty('filter', `blur(${a.farBlur}px) saturate(${sat * vib * 1.04}) brightness(${bri * 0.96})`, 'important');
+    nearCanvas.style.setProperty('filter', `blur(${a.nearBlur}px) saturate(${sat * vib}) brightness(${bri * intensityBrightness}) contrast(${contrast})`, 'important');
+    farCanvas.style.setProperty('filter', `blur(${a.farBlur}px) saturate(${sat * vib * 1.02}) brightness(${bri * 0.96 * intensityBrightness}) contrast(${contrast})`, 'important');
   }
 
   function resizeCanvasToViewport(canvas, ctx, far = false) {
@@ -1043,7 +1050,8 @@
     filters.body.append(
       sliderRow('亮度', 'brightness', 50, 150, 1, '%'),
       sliderRow('色彩', 'vibrance', 50, 200, 1, '%'),
-      sliderRow('饱和度', 'saturation', 50, 200, 1, '%')
+      sliderRow('饱和度', 'saturation', 40, 160, 1, '%'),
+      toggleRow('暗部压制', 'blackCrush')
     );
     settingsPanel.append(filters.details);
 
@@ -1052,6 +1060,7 @@
       toggleRow('边缘投影器', 'alphaProjector'),
       sliderRow('模糊', 'blur', 0, 100, 0.1, '%'),
       sliderRow('扩散范围', 'spread', 0, 100, 0.1, '%'),
+      sliderRow('颜色强度', 'ambientIntensity', 0, 140, 1, '%'),
       sliderRow('边缘采样宽度', 'edgeSize', 2, 32, 0.1, '%'),
       sliderRow('扩散衰减起点', 'spreadFadeStart', 0, 60, 0.1, '%'),
       sliderRow('扩散衰减曲线', 'spreadFadeCurve', 1, 100, 1, '%'),
@@ -1155,8 +1164,21 @@
 
   async function loadSettings() {
     try {
-      const saved = await chrome.storage.sync.get(DEFAULTS);
-      settings = { ...DEFAULTS, ...saved };
+      const rawSaved = await chrome.storage.sync.get(null);
+      // v1.1.2 migration: only replace the previous stock Standard preset.
+      // Custom user tuning is preserved.
+      if ((Number(rawSaved.settingsRevision) || 0) < 2) {
+        const looksLikeOldStandard =
+          Number(rawSaved.blur) === 73.1 && Number(rawSaved.spread) === 89.8 &&
+          Number(rawSaved.brightness) === 100 && Number(rawSaved.saturation) === 115 &&
+          Number(rawSaved.vibrance) === 115;
+        if (looksLikeOldStandard) {
+          Object.assign(rawSaved, PRESETS.standard);
+        }
+        rawSaved.settingsRevision = 2;
+        await chrome.storage.sync.set({ ...rawSaved, settingsRevision: 2 });
+      }
+      settings = { ...DEFAULTS, ...rawSaved };
     } catch (_) {
       settings = { ...DEFAULTS };
     }
