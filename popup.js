@@ -3,12 +3,12 @@ const DEFAULTS = {
   blur: 55,
   spread: 85,
   fadeDuration: 0,
-  brightness: 80,
-  saturation: 70,
+  brightness: 100,
+  saturation: 105,
   vibrance: 100,
   ambientIntensity: 100,
-  blackCrush: true,
-  fps: 30,
+  blackCrush: false,
+  fps: 60,
   renderQuality: 26,
   headerOnTop: true,
   trueBlack: true,
@@ -29,17 +29,17 @@ const DEFAULTS = {
   spreadFadeCurve: 35,
   separateDmBar: true,
   suppressPlayerEdgeShadow: true,
-  edgeShadowSuppression: 78,
+  edgeShadowSuppression:100,
   headerAmbient: 68,
   dmAmbient: 68,
   performanceMode: true,
-  settingsRevision: 2
+  settingsRevision: 4
 };
 
 const PRESETS = {
-  light: { blur:35, spread:70, ambientIntensity:70, edgeSize:9, spreadFadeStart:20, spreadFadeCurve:46, brightness:78, saturation:65, vibrance:95, blackCrush:true, headerAmbient:32, dmAmbient:32, edgeShadowSuppression:55, fps:24, renderQuality:20, alphaProjector:true, performanceMode:true },
-  standard: { blur:55, spread:85, ambientIntensity:100, fadeDuration:0, viewMode:'all', trueBlack:true, enabled:true, edgeSize:12, spreadFadeStart:15, spreadFadeCurve:35, brightness:80, saturation:70, vibrance:100, blackCrush:true, headerAmbient:58, dmAmbient:58, edgeShadowSuppression:78, fps:30, renderQuality:24, alphaProjector:true, performanceMode:true },
-  heavy: { blur:75, spread:95, ambientIntensity:120, edgeSize:15, spreadFadeStart:9, spreadFadeCurve:26, brightness:88, saturation:90, vibrance:108, blackCrush:true, headerAmbient:78, dmAmbient:78, edgeShadowSuppression:94, fps:30, renderQuality:26, alphaProjector:true, performanceMode:true }
+  light: { blur:35, spread:70, ambientIntensity:70, edgeSize:9, spreadFadeStart:20, spreadFadeCurve:46, brightness:95, saturation:100, vibrance:100, blackCrush:false, headerAmbient:32, dmAmbient:32, edgeShadowSuppression:100, suppressPlayerEdgeShadow:true, separateDmBar:true, fps:30, renderQuality:20, alphaProjector:true, performanceMode:true },
+  standard: { blur:55, spread:85, ambientIntensity:100, fadeDuration:0, viewMode:'all', trueBlack:true, enabled:true, edgeSize:12, spreadFadeStart:15, spreadFadeCurve:35, brightness:100, saturation:105, vibrance:100, blackCrush:false, headerAmbient:58, dmAmbient:58, edgeShadowSuppression:100, suppressPlayerEdgeShadow:true, separateDmBar:true, fps:60, renderQuality:24, alphaProjector:true, performanceMode:true },
+  heavy: { blur:75, spread:95, ambientIntensity:120, edgeSize:15, spreadFadeStart:9, spreadFadeCurve:26, brightness:105, saturation:115, vibrance:108, blackCrush:false, headerAmbient:78, dmAmbient:78, edgeShadowSuppression:100, suppressPlayerEdgeShadow:true, separateDmBar:true, fps:60, renderQuality:26, alphaProjector:true, performanceMode:true }
 };
 
 const boolIds = ['enabled','headerOnTop','trueBlack','darkTextAdaptation','removeHorizontalBars','removeVerticalBars','detectColoredBars','fillVideoToCrop','alphaProjector','separateDmBar','suppressPlayerEdgeShadow','performanceMode','blackCrush'];
@@ -58,29 +58,47 @@ function showValue(id) {
 }
 
 async function load() {
-  const data = await chrome.storage.sync.get(DEFAULTS);
+  const data = { ...DEFAULTS, ...await baliSettingsStore.get() };
   boolIds.forEach(id => { $(id).checked = !!data[id]; });
   rangeIds.forEach(id => { $(id).value = data[id]; showValue(id); });
   $('viewMode').value = data.viewMode || 'all';
 }
 
 boolIds.forEach(id => {
-  $(id).addEventListener('change', () => chrome.storage.sync.set({ [id]: $(id).checked }));
+  $(id).addEventListener('change', () => baliSettingsStore.set({ [id]: $(id).checked }));
 });
 rangeIds.forEach(id => {
   $(id).addEventListener('input', () => {
     const value = Number($(id).value);
     showValue(id);
-    chrome.storage.sync.set({ [id]: value });
+    baliSettingsStore.set({ [id]: value });
   });
 });
-$('viewMode').addEventListener('change', () => chrome.storage.sync.set({ viewMode: $('viewMode').value }));
+$('viewMode').addEventListener('change', () => baliSettingsStore.set({ viewMode: $('viewMode').value }));
 
 document.querySelectorAll('[data-preset]').forEach(btn => {
   btn.addEventListener('click', async () => {
-    await chrome.storage.sync.set(PRESETS[btn.dataset.preset]);
+    await baliSettingsStore.set(PRESETS[btn.dataset.preset]);
     await load();
   });
+});
+
+$('exportBorderDiagnostics').addEventListener('click', async () => {
+  const button=$('exportBorderDiagnostics'),status=$('borderDiagnosticStatus');
+  button.disabled=true;status.textContent=' 正在读取当前视频边缘…';
+  try {
+    const [tab]=await chrome.tabs.query({active:true,currentWindow:true});
+    if (!tab?.id) throw new Error('请先打开 Bilibili 视频页。');
+    const response=await chrome.tabs.sendMessage(tab.id,{type:'bali-border-diagnostic'});
+    if (!response?.ok) throw new Error(response?.error || '未收到页面诊断。');
+    const url=URL.createObjectURL(new Blob([JSON.stringify(response.report,null,2)],{type:'application/json'}));
+    const link=document.createElement('a');link.href=url;link.download='bilibili-ambient-border-diagnostic.json';link.click();
+    setTimeout(()=>URL.revokeObjectURL(url),10000);
+    status.textContent=' 已导出诊断；画面效果未改动。';
+  } catch (error) {
+    status.textContent=' 请先重载扩展、刷新视频页后重试。';
+    status.title=String(error.message || error);
+  } finally { button.disabled=false; }
 });
 
 load();

@@ -26,6 +26,7 @@ html[data-bili-ambient-dark="1"] body {
   color: #f1f2f3 !important;
 }
 
+/* Main containers are transparent so ambient light can be seen behind, never above. */
 html[data-bili-ambient-dark="1"] :is(
   #app,
   #app > div,
@@ -49,6 +50,11 @@ html[data-bili-ambient-dark="1"] :is(
   background-image: none !important;
 }
 
+/* v1.0 SAFE LAYERING
+   Ambient light already lives below the page (root z-index:0; page z-index:1),
+   so the whole native player does NOT need an extra high stacking context.
+   Keeping Bilibili's native player stacking prevents the danmaku input bar from
+   being lifted together with the video and avoids progress-bar regressions. */
 html[data-bili-ambient-dark="1"] :is(
   .bpx-player-container,
   #bilibili-player,
@@ -58,6 +64,8 @@ html[data-bili-ambient-dark="1"] :is(
   background: transparent !important;
 }
 
+/* Only the actual picture region keeps a black backing surface. No geometry/z-index
+   overrides are applied to controls, progress bars or the sending bar. */
 html[data-bili-ambient-dark="1"] :is(
   .bpx-player-primary-area,
   .bpx-player-video-area,
@@ -67,6 +75,7 @@ html[data-bili-ambient-dark="1"] :is(
   background-color: rgba(0, 0, 0, var(--bali-player-back-alpha, 1)) !important;
 }
 
+/* HEADER FIX: Bilibili search/category menus must always paint above the player. */
 html[data-bili-ambient-dark="1"][data-bili-ambient-header-top="1"] :is(
   .bili-header,
   .bili-header__bar,
@@ -87,6 +96,7 @@ html[data-bili-ambient-dark="1"][data-bili-ambient-header-top="1"] :is(
   position: relative !important;
 }
 
+/* Search suggestions, category panels, popovers and dropdowns sit above even the player menu. */
 html[data-bili-ambient-dark="1"][data-bili-ambient-header-top="1"] :is(
   .nav-search-content,
   .nav-search-panel,
@@ -120,6 +130,7 @@ html[data-bili-ambient-dark="1"] :is(
   -webkit-backdrop-filter: blur(var(--bali-header-blur, 22px)) saturate(var(--bali-header-sat, 1.25)) !important;
 }
 
+/* Let the ambient light actually pass through the header/search surfaces. */
 html[data-bili-ambient-dark="1"] :is(
   .bili-header .nav-search-content,
   .bili-header .nav-search-input,
@@ -131,8 +142,8 @@ html[data-bili-ambient-dark="1"] :is(
   -webkit-backdrop-filter: blur(var(--bali-header-blur, 22px)) saturate(var(--bali-header-sat, 1.25)) !important;
 }
 
+/* Panels/cards: translucent dark glass. */
 html[data-bili-ambient-dark="1"] :is(
-  .up-panel-container,
   .danmaku-box,
   .bpx-player-dm-wrap,
   .bui-collapse-wrap,
@@ -152,6 +163,7 @@ html[data-bili-ambient-dark="1"] :is(
   box-shadow: none !important;
 }
 
+/* Inputs and popup surfaces. */
 html[data-bili-ambient-dark="1"] :is(
   input,
   textarea,
@@ -161,18 +173,60 @@ html[data-bili-ambient-dark="1"] :is(
   [class*="input-container"],
   [class*="search-panel"],
   [class*="search-result"],
-  [class*="popover"],
-  [class*="dropdown"]
+  .v-popover-content,
+  [class*="popover-content"],
+  [class*="popover-panel"],
+  [class*="popover__popper"],
+  [class*="dropdown-menu"],
+  [class*="dropdown-panel"],
+  [role="menu"],
+  [role="listbox"]
 ) {
   color: #f1f2f3 !important;
   background-color: rgba(17, 19, 25, .88) !important;
   border-color: rgba(255,255,255,.13) !important;
 }
 
+/* References/triggers are ordinary page content, not floating menu surfaces. */
+html[data-bili-ambient-dark="1"] :is(
+  .v-popover,
+  .v-popover__reference,
+  .van-popover__reference,
+  [class*="popover-trigger"],
+  [class*="dropdown-trigger"],
+  .video-toolbar-container .video-share
+) {
+  background-color: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+/* UP author containers are fully clear; action buttons keep native colours. */
+html[data-bili-ambient-dark="1"] :is(
+  .up-panel-container,
+  .up-info-container,
+  .up-info,
+  .up-info--right,
+  .up-info__right
+) {
+  background-color: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  border-color: transparent !important;
+}
+
+html[data-bili-ambient-dark="1"] .up-panel-container::before,
+html[data-bili-ambient-dark="1"] .up-panel-container::after {
+  background-color: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
 html[data-bili-ambient-dark="1"] ::placeholder {
   color: #8f969f !important;
 }
 
+/* Change text colors instead of filter:invert(), so video/images keep their colors. */
 html[data-bili-ambient-dark="1"][data-bili-ambient-text-adapt="1"] #app :is(
   h1,h2,h3,h4,h5,h6,p,label,li,
   .video-title,
@@ -222,6 +276,7 @@ html[data-bili-ambient-dark="1"][data-bili-ambient-text-adapt="1"] #app svg :is(
   fill: #e8ebef !important;
 }
 
+/* Keep real page media unmodified, but NEVER cancel filters on ambient-light canvases. */
 html[data-bili-ambient-dark="1"] #app :is(video, img, picture, canvas) { filter: none !important; }
 #bili-ambient-v32-near,
 #bili-ambient-v32-far {
@@ -229,25 +284,37 @@ html[data-bili-ambient-dark="1"] #app :is(video, img, picture, canvas) { filter:
   backface-visibility: hidden;
 }
 
+/* In-player AL button and YouTube-Ambilight-style menu. */
 .bali-ambient-player-btn {
-  width: 38px !important;
-  min-width: 38px !important;
+  position: relative !important;
+  width: 26px !important;
+  min-width: 26px !important;
+  height: 22px !important;
+  box-sizing: border-box !important;
+  flex: 0 0 26px !important;
+  margin: 0 !important;
+  padding: 0 !important;
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
+  vertical-align: top !important;
+  line-height: 1 !important;
   cursor: pointer !important;
   color: #fff !important;
   user-select: none;
 }
 .bali-ambient-player-btn > span {
-  font-size: 11px;
-  line-height: 20px;
-  font-weight: 800;
-  letter-spacing: .2px;
-  border: 1px solid rgba(255,255,255,.62);
-  border-radius: 4px;
-  padding: 0 3px;
-  background: rgba(0,0,0,.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 22px;
+  height: 18px;
+  font: 700 10px/1 Arial, sans-serif;
+  border: 1px solid rgba(255,255,255,.8);
+  border-radius: 3px;
+  padding: 0;
+  background: transparent;
 }
 
 .bali-player-settings-panel {
@@ -311,6 +378,7 @@ html[data-bili-ambient-dark="1"] #app :is(video, img, picture, canvas) { filter:
   border-top: 1px solid rgba(255,255,255,.10); color: rgba(255,255,255,.68); font-weight: 650;
 }
 
+
 .bali-menu-presets {
   padding: 10px 14px 12px;
   border-top: 1px solid rgba(255,255,255,.12);
@@ -326,11 +394,18 @@ html[data-bili-ambient-dark="1"] #app :is(video, img, picture, canvas) { filter:
 }
 .bali-menu-preset-buttons button:hover { background: rgba(255,255,255,.12); }
 
+/* Optional: visually fill the player after embedded black bars were detected.
+   Kept off by default because zooming necessarily crops some real picture content. */
 video[data-bali-fill-video="1"] {
   scale: var(--bali-fill-scale, 1) !important;
   transform-origin: center center !important;
 }
 
+
+/* ===== v1.0: danmaku input bar separation =====
+   Keep the sending bar in Bilibili's own document flow and native stacking order.
+   We intentionally do NOT set position/transform/overflow/isolation here: those
+   properties can disturb the native progress/control geometry. */
 html[data-bili-ambient-dark="1"][data-bili-ambient-dm-separated="1"] :is(
   .bpx-player-sending-bar,
   [class*="bpx-player-sending-bar"]
@@ -338,8 +413,9 @@ html[data-bili-ambient-dark="1"][data-bili-ambient-dm-separated="1"] :is(
   z-index: auto !important;
   box-shadow: none !important;
   filter: none !important;
-  background: rgba(9, 11, 15, var(--bali-dm-bg-alpha, .63)) !important;
-  border-top-color: rgba(255,255,255,.08) !important;
+  background: transparent !important;
+  border-top-color: transparent !important;
+  text-shadow: 0 1px 2px rgba(0,0,0,.55);
   backdrop-filter: blur(var(--bali-dm-blur, 20px)) saturate(var(--bali-dm-sat, 1.25)) !important;
   -webkit-backdrop-filter: blur(var(--bali-dm-blur, 20px)) saturate(var(--bali-dm-sat, 1.25)) !important;
 }
@@ -347,10 +423,13 @@ html[data-bili-ambient-dark="1"][data-bili-ambient-dm-separated="1"] :is(
 html[data-bili-ambient-dark="1"][data-bili-ambient-dm-separated="1"] :is(
   .bpx-player-sending-bar,
   [class*="bpx-player-sending-bar"]
-) :is(input, textarea, [class*="input"], [class*="placeholder"]) {
+) :is(input, textarea, [class*="input"], [class*="placeholder"], .bpx-player-sending-area, .bpx-player-sending-wrap) {
   background-color: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
 }
 
+/* Never override native progress/control geometry in the release build. */
 html[data-bili-ambient-dark="1"][data-bili-ambient-no-edge-shadow="1"] :is(
   .bpx-player-container,
   #bilibili-player,
@@ -358,35 +437,97 @@ html[data-bili-ambient-dark="1"][data-bili-ambient-no-edge-shadow="1"] :is(
   .bpx-player-primary-area,
   .bpx-player-video-area,
   .bpx-player-video-wrap,
-  .bpx-player-video-area-wrap
+  .bpx-player-video-area-wrap,
+  .bpx-player-wrap,
+  .bpx-player-video-perch,
+  #playerWrap,
+  #bilibili-player-wrap,
+  [data-bali-player-shell]
 ) {
   box-shadow: none !important;
+  background-color: transparent !important;
+  background-image: none !important;
   outline: none !important;
   border-color: transparent !important;
+}
+
+/* Keep the existing inner-player reset. Ancestor filters are cleaned in JS so
+   a site's unrelated brightness/saturation functions are not removed. */
+html[data-bili-ambient-dark="1"][data-bili-ambient-no-edge-shadow="1"] :is(
+  .bpx-player-container,
+  #bilibili-player,
+  .bilibili-player,
+  .bpx-player-primary-area,
+  .bpx-player-video-area,
+  .bpx-player-video-wrap,
+  .bpx-player-video-area-wrap,
+  .bpx-player-wrap,
+  .bpx-player-video-perch
+) {
+  filter: none !important;
 }
 
 html[data-bili-ambient-dark="1"][data-bili-ambient-no-edge-shadow="1"] :is(
   .bpx-player-container,
   .bpx-player-primary-area,
   .bpx-player-video-area,
-  .bpx-player-video-wrap
+  .bpx-player-video-wrap,
+  #playerWrap,
+  #bilibili-player-wrap,
+  [data-bali-player-shell]
 )::before,
 html[data-bili-ambient-dark="1"][data-bili-ambient-no-edge-shadow="1"] :is(
   .bpx-player-container,
   .bpx-player-primary-area,
   .bpx-player-video-area,
-  .bpx-player-video-wrap
+  .bpx-player-video-wrap,
+  #playerWrap,
+  #bilibili-player-wrap,
+  [data-bali-player-shell]
 )::after {
   box-shadow: none !important;
+  background: transparent !important;
+  filter: none !important;
   outline: none !important;
   border-color: transparent !important;
 }
 
+/* The remaining live-page 8px frame comes from the loading skeleton beside
+   the mounted player, outside its ancestor chain. Keep its layout intact. */
+html[data-bili-ambient-dark="1"][data-bili-ambient-no-edge-shadow="1"] :is(
+  #bilibili-player-placeholder,
+  #bilibili-player-placeholder-top,
+  #bilibili-player-placeholder-bottom,
+  #bilibili-player-placeholder-bottom-left,
+  #bilibili-player-placeholder-bottom-right
+) {
+  box-shadow: none !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  border-color: transparent !important;
+}
+
+/* Clear native control gradients without changing controls or hit areas. */
+html[data-bili-ambient-dark="1"][data-bili-ambient-no-edge-shadow="1"] :is(
+  .bpx-player-top-mask,
+  .bpx-player-control-mask,
+  .bpx-player-control-top,
+  .bpx-player-control-bottom
+) {
+  background-color: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  border-color: transparent !important;
+}
+
+/* Edge projector uses screen blending so black pixels/borders do not darken other light. */
 html[data-bili-ambient-alpha-projector="1"] #bili-ambient-v32-near,
 html[data-bili-ambient-alpha-projector="1"] #bili-ambient-v32-far {
   mix-blend-mode: screen !important;
 }
 
+
+/* v1.1.1: floating/mini player must stay above comments so it remains draggable. */
 html[data-bili-ambient-dark="1"] :is(
   .bpx-player-container[data-bali-mini-player],
   #bilibili-player[data-bali-mini-player],

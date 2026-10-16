@@ -37,7 +37,7 @@
   </style>
 </head>
 <body>
-  <div class="top"><strong>Bilibili 环境光 v1.1.2</strong><span>参考 YouTube Ambient Light 的环境光设置</span></div>
+  <div class="top"><strong>Bilibili 环境光 v1.3</strong><span>参考 YouTube Ambient Light 的环境光设置</span></div>
 
   <details><summary>设置</summary><div class="body"><label class="row toggle"><span>启用环境光</span><input id="enabled" type="checkbox"></label></div></details>
 
@@ -84,10 +84,10 @@
   <details open><summary>环境光</summary><div class="body">
     <label class="row toggle"><span>边缘投影器</span><input id="alphaProjector" type="checkbox"></label>
     <label class="row"><span>模糊</span><input id="blur" type="range" min="0" max="100" step="0.1"><output id="blurOut"></output></label>
-    <label class="row"><span>扩散范围</span><input id="spread" type="range" min="0" max="100" step="0.1"><output id="spreadOut"></output></label>
+    <label class="row"><span>扩散范围</span><input id="spread" type="range" min="0" max="400" step="0.1"><output id="spreadOut"></output></label>
     <label class="row"><span>颜色强度</span><input id="ambientIntensity" type="range" min="0" max="140" step="1"><output id="ambientIntensityOut"></output></label>
-    <label class="row"><span>边缘采样宽度</span><input id="edgeSize" type="range" min="2" max="32" step="0.1"><output id="edgeSizeOut"></output></label>
-    <label class="row"><span>扩散衰减起点</span><input id="spreadFadeStart" type="range" min="0" max="60" step="0.1"><output id="spreadFadeStartOut"></output></label>
+    <label class="row"><span>投影层间距</span><input id="edgeSize" type="range" min="2" max="50" step="0.1"><output id="edgeSizeOut"></output></label>
+    <label class="row"><span>扩散衰减起点</span><input id="spreadFadeStart" type="range" min="-50" max="100" step="0.1"><output id="spreadFadeStartOut"></output></label>
     <label class="row"><span>扩散衰减曲线</span><input id="spreadFadeCurve" type="range" min="1" max="100" step="1"><output id="spreadFadeCurveOut"></output></label>
     <label class="row"><span>淡入时间</span><input id="fadeDuration" type="range" min="0" max="1500" step="50"><output id="fadeDurationOut"></output></label>
     <div class="subhead">视图模式</div>
@@ -95,7 +95,9 @@
   </div></details>
 
   <div class="buttons"><button data-preset="light">轻度</button><button data-preset="standard">标准</button><button data-preset="heavy">重度</button></div>
-  <div class="note">v1.1.2：降低默认模糊与高饱和溢出。标准预设为 Blur 55%、Spread 85%、颜色强度 100%、亮度 80%、饱和度 70%，并默认开启暗部压制；继续保留性能优化、黑边检测、玻璃环境光与小窗层级修复。</div>
+  <div class="note"><button id="exportBorderDiagnostics" type="button">导出黑边诊断</button><span id="borderDiagnosticStatus" role="status"></span></div>
+  <div class="note">v1.3：AL按钮缩小并对齐原生控件；保留实时多层投影、透明背景与暗框修复。</div>
+  <script src="settings-store.js"></script>
   <script src="popup.js"></script>
 </body>
 </html>

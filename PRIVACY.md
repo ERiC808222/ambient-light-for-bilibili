@@ -34,7 +34,7 @@ Ambient Light for Bilibili 的核心功能是在 Bilibili 视频播放页面中�
 
 本扩展使用浏览器扩展的 `storage` API 保存用户选择的设置，例如模糊程度、扩散范围、亮度、性能模式和预设。
 
-当前版本使用 `chrome.storage.sync`。如果用户在浏览器中启用了同步，设置可能通过 Microsoft、Google 或所使用浏览器厂商提供的浏览器同步服务，在用户自己的设备之间同步。
+当前版本使用 `chrome.storage.local` 保存本地设置草稿，再合并写入 `chrome.storage.sync`；同步失败时保留本地草稿并重试。如果用户在浏览器中启用了同步，设置可能通过 Microsoft、Google 或所使用浏览器厂商提供的浏览器同步服务，在用户自己的设备之间同步。
 
 扩展开发者不会接收这些设置，也不会运营用于存储这些设置的服务器。
 
@@ -83,7 +83,7 @@ The extension reads frames from the active HTML `<video>` element in browser mem
 The extension does not intentionally collect or transmit browsing history, search history, account credentials, comments, danmaku messages, private messages, payment information, precise location, or cross-site tracking identifiers.
 
 ### Settings
-User preferences are stored with the browser extension `storage` API. The current version uses `chrome.storage.sync`. If browser sync is enabled, the browser vendor may synchronize these settings between the user's devices. The extension developer does not receive these settings.
+User preferences are stored with the browser extension `storage` API. Local drafts use `chrome.storage.local`, then updates are combined into `chrome.storage.sync` writes. Drafts are retained and retried if sync fails. If browser sync is enabled, the browser vendor may synchronize these settings between the user's devices. The extension developer does not receive these settings.
 
 ### Remote code and analytics
 The extension does not execute remotely hosted code and does not include third-party analytics, advertising, or tracking SDKs.
@@ -96,3 +96,9 @@ Users can disable the effect, change settings, disable or uninstall the extensio
 
 ### Contact
 After the public GitHub repository is created, use GitHub Issues as the public support/contact channel.
+
+### Optional local border diagnostics / 可选本地黑边诊断
+
+仅在用户点击“导出黑边诊断”时，扩展读取当前视频页的路径（不含查询参数）、脚本版本、播放器边缘元素的计算样式及相关 CSS 规则，并导出本地 JSON。报告不自动上传，不读取页面正文、评论、账号资料或视频源地址。诊断过程不改变画面效果。
+
+Only on an explicit export action, the extension reads the current video page path without query parameters, the running script version, computed paint styles around the player and relevant CSS rules. It exports a local JSON file without automatic upload, page text, comments, account data or video source URLs. It does not change the visual effect.
